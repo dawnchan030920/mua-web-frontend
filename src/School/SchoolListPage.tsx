@@ -5,7 +5,6 @@ const SchoolListPage: React.FC<{}> = () => {
   return (
     <>
       <div>This is school list page.</div>
-      <Outlet />
     </>
   );
 };
