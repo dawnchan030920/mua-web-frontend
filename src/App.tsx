@@ -13,6 +13,9 @@ import ActivityPage from "./Activity/ActivityPage";
 import OtherContainer from "./Other/OtherContainer";
 import OtherListPage from "./Other/OtherListPage";
 import OtherPage from "./Other/OtherPage";
+import RecurrenceContainer from "./Recurrence/RecurrenceContainer";
+import RecurrenceListPage from "./Recurrence/RecurrenceListPage";
+import RecurrencePage from "./Recurrence/RecurrencePage";
 
 const App: React.FC<{}> = () => {
   return (
@@ -33,6 +36,10 @@ const App: React.FC<{}> = () => {
       <Route path="/other" element={<OtherContainer />}>
         <Route index element={<OtherListPage />}></Route>
         <Route path=":pid" element={<OtherPage />}></Route>
+      </Route>
+      <Route path="/recurrence" element={<RecurrenceContainer />}>
+        <Route index element={<RecurrenceListPage />}></Route>
+        <Route path=":pid" element={<RecurrencePage />}></Route>
       </Route>
     </Routes>
   );
