@@ -8,13 +8,14 @@ import SearchIconUrl from "../../assets/search28.svg";
 import ListIconUrl from "../../assets/list28.svg";
 import ChevronUpUrl from "../../assets/chevronup28.svg";
 import ReadingListUrl from "../../assets/readinglist28.svg";
+import { useMount, useEventListener } from "ahooks";
 
-type ArticleLayoutProps = PropsWithChildren<{}>;
+type ArticleLayoutProps = PropsWithChildren<{ titles: TitleType[] }>;
 
 type TitleType = {
   header: string;
   level: number;
-  anchor: string;
+  id: string;
 };
 
 type MobileTOCItemProps = {
@@ -23,7 +24,7 @@ type MobileTOCItemProps = {
 
 const MobileContainer = styled.div`
   display: grid;
-  grid-template-columns: minmax(48px, 10%) 1fr;
+  grid-template-columns: minmax(48px, 8%) 1fr;
 `;
 
 const MobileSide = styled.div`
@@ -137,15 +138,28 @@ const MobileMain = styled.div`
 `;
 
 const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
-  const [titles, setTitles] = useState<TitleType[]>([
-    {
-      header: "Header1",
-      level: 1,
-      anchor: "#header1"
-    }
-  ]);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  function refreshCurrentId(): void {
+    let tempId: string = "";
+    let element: HTMLElement | null;
+    let top;
+    props.titles.forEach((value, _index, _array) => {
+      element = document.getElementById(value.id);
+      top = element?.getBoundingClientRect()?.top;
+      if (top != undefined && top <= 30)
+      {
+        tempId = value.id;
+      }
+    });
+    setCurrentId(tempId);
+  };
 
+  useMount(() => refreshCurrentId());
+
+  useEventListener("scroll", () => {
+    refreshCurrentId();
+  });
+
+  const [currentId, setCurrentId] = useState<string>();
   return (
     <>
       <Mobile>
@@ -162,11 +176,11 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
             />
             <MobileTOCContainer>
               <MobileTOCList>
-                {titles.map((value, index, _array) => {
+                {props.titles.map((value, _index, _array) => {
                   return (
-                    <MobileTOCItem isActive={index == currentIndex}>
+                    <MobileTOCItem isActive={value.id == currentId}>
                       <MobileTOCItemActiveindicator />
-                      <MobileTOCItemText href={value.anchor}>
+                      <MobileTOCItemText href={"#" + value.id}>
                         {value.header}
                       </MobileTOCItemText>
                     </MobileTOCItem>
@@ -178,9 +192,7 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
             <SubtleButton icon={<img src={SearchIconUrl} alt="search" />} />
           </MobileSide>
 
-          <MobileMain>
-            {props.children}
-          </MobileMain>
+          <MobileMain>{props.children}</MobileMain>
         </MobileContainer>
       </Mobile>
     </>
