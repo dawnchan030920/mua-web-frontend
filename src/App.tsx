@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import HomePage from "./Home/HomePage";
-import ProjectContainer from "./Project/ProjectContainer";
-import ProjectListPage from "./Project/ProjectListPage";
-import SchoolContainer from "./School/SchoolContainer";
-import SchoolListPage from "./School/SchoolListPage";
-import SchoolPage from "./School/SchoolPage";
-import ProjectPage from "./Project/ProjectPage";
-import ActivityContainer from "./Activity/ActivityContainer";
-import ActivityListPage from "./Activity/ActivityListPage";
-import ActivityPage from "./Activity/ActivityPage";
-import OtherContainer from "./Other/OtherContainer";
-import OtherListPage from "./Other/OtherListPage";
-import OtherPage from "./Other/OtherPage";
-import RecurrenceContainer from "./Recurrence/RecurrenceContainer";
-import RecurrenceListPage from "./Recurrence/RecurrenceListPage";
-import RecurrencePage from "./Recurrence/RecurrencePage";
+import HomePage from "./pages/Home/HomePage";
+import ProjectContainer from "./pages/Project/ProjectContainer";
+import ProjectListPage from "./pages/Project/ProjectListPage";
+import SchoolContainer from "./pages/School/SchoolContainer";
+import SchoolListPage from "./pages/School/SchoolListPage";
+import SchoolPage from "./pages/School/SchoolPage";
+import ProjectPage from "./pages/Project/ProjectPage";
+import ActivityContainer from "./pages/Activity/ActivityContainer";
+import ActivityListPage from "./pages/Activity/ActivityListPage";
+import ActivityPage from "./pages/Activity/ActivityPage";
+import OtherContainer from "./pages/Other/OtherContainer";
+import OtherListPage from "./pages/Other/OtherListPage";
+import OtherPage from "./pages/Other/OtherPage";
+import RecurrenceContainer from "./pages/Recurrence/RecurrenceContainer";
+import RecurrenceListPage from "./pages/Recurrence/RecurrenceListPage";
+import RecurrencePage from "./pages/Recurrence/RecurrencePage";
 
 const App: React.FC<{}> = () => {
   return (

@@ -145,13 +145,12 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
     props.titles.forEach((value, _index, _array) => {
       element = document.getElementById(value.id);
       top = element?.getBoundingClientRect()?.top;
-      if (top != undefined && top <= 30)
-      {
+      if (top != undefined && top <= 30) {
         tempId = value.id;
       }
     });
     setCurrentId(tempId);
-  };
+  }
 
   useMount(() => refreshCurrentId());
 
@@ -188,10 +187,13 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
                 })}
               </MobileTOCList>
             </MobileTOCContainer>
-            <SubtleButton icon={<img src={ChevronUpUrl} alt="back tp top" />} />
+            <a href="#">
+              <SubtleButton
+                icon={<img src={ChevronUpUrl} alt="back tp top" />}
+              />
+            </a>
             <SubtleButton icon={<img src={SearchIconUrl} alt="search" />} />
           </MobileSide>
-
           <MobileMain>{props.children}</MobileMain>
         </MobileContainer>
       </Mobile>
