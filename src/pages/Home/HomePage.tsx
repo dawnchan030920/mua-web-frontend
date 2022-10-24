@@ -225,6 +225,7 @@ const HomePage: React.FC<{}> = () => {
       <br />
       <br />
       <br />
+      <p>This is a test paragraph.</p>
     </ArticleLayout>
   );
 };

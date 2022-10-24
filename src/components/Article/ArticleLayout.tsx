@@ -8,7 +8,14 @@ import SearchIconUrl from "../../assets/search28.svg";
 import ListIconUrl from "../../assets/list28.svg";
 import ChevronUpUrl from "../../assets/chevronup28.svg";
 import ReadingListUrl from "../../assets/readinglist28.svg";
-import { useMount, useEventListener } from "ahooks";
+import {
+  useMount,
+  useEventListener,
+  useBoolean,
+  useControllableValue,
+} from "ahooks";
+import ControllableInput from "../Basic/ControllableInput";
+import ControllabelInput from "../Basic/ControllableInput";
 
 type ArticleLayoutProps = PropsWithChildren<{ titles: TitleType[] }>;
 
@@ -28,6 +35,8 @@ const MobileContainer = styled.div`
 `;
 
 const MobileSide = styled.div`
+  z-index: 999;
+
   position: sticky;
   top: 0;
 
@@ -35,7 +44,7 @@ const MobileSide = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.1vh;
+  gap: 0.6vh;
   height: 100vh;
   padding: 8px 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
@@ -83,7 +92,7 @@ const MobileTOCList = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  gap: calc(2.6vh + 0.2rem);
+  gap: calc(0.5vh + 0.2rem);
   overflow: auto;
   padding: 1.2vh 0px;
 
@@ -101,11 +110,15 @@ const MobileTOCItem = styled.div.attrs<MobileTOCItemProps>(
   align-items: center;
   justify-content: center;
   flex-direction: column-reverse;
+  padding: 8px 0px;
+  border-radius: 6px;
   ${(props) => {
     if (props.isActive)
       return `
+        background-color: #EBEBEB;
         & #activeindicator {
-          background-color: #707070;
+          background-color: #456dc9;
+          height: 88%;
         }
         & #text {
           font-weight: 600;
@@ -119,7 +132,7 @@ const MobileTOCItemText = styled.a.attrs({
 })`
   text-decoration: none;
   font-size: calc(12px + 1.2vw);
-  color: #616161;
+  color: #000000;
   white-space: nowrap;
   margin: 0px auto;
 `;
@@ -128,13 +141,45 @@ const MobileTOCItemActiveindicator = styled.div.attrs({
   id: "activeindicator",
 })`
   width: 5px;
-  height: 88%;
   background-color: transparent;
   border-radius: 4px;
+  height: 0px;
+  transition: all 0.18s;
 `;
 
 const MobileMain = styled.div`
   grid-column: 2;
+  display: flex;
+  flex-direction: column;
+`;
+
+const SearchBoxStyle = styled.div.attrs({
+  id: "searchbox",
+})`
+  display: flex;
+  background-color: #fafafa;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.4);
+  padding: 9px 12px;
+  height: 100%;
+  display: none;
+`;
+
+const SearchBoxContainer = styled.div.attrs<{ active: boolean }>(() => {})<{
+  active: boolean;
+}>`
+  z-index: 1;
+  position: sticky;
+  bottom: 0px;
+  transition: height 0.15s;
+  height: 0px;
+  ${(props) => {
+    if (props.active) {
+      return `height: 48px;
+              & #searchbox {
+                display: block;
+              }`;
+    }
+  }}
 `;
 
 const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
@@ -159,6 +204,9 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
   });
 
   const [currentId, setCurrentId] = useState<string>();
+  const [isSearchOpen, { toggle: toggleSearchOpen }] = useBoolean(false);
+  const [searchText, setSearchText] = useState<string>("");
+
   return (
     <>
       <Mobile>
@@ -192,9 +240,27 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
                 icon={<img src={ChevronUpUrl} alt="back tp top" />}
               />
             </a>
-            <SubtleButton icon={<img src={SearchIconUrl} alt="search" />} />
+            <SubtleButton
+              icon={
+                <img
+                  src={SearchIconUrl}
+                  alt="search"
+                  onClick={() => toggleSearchOpen()}
+                />
+              }
+            />
           </MobileSide>
-          <MobileMain>{props.children}</MobileMain>
+          <MobileMain>
+            <div>{props.children}</div>
+            <SearchBoxContainer active={isSearchOpen}>
+              <SearchBoxStyle>
+                <ControllabelInput
+                  value={searchText}
+                  onChange={setSearchText}
+                />
+              </SearchBoxStyle>
+            </SearchBoxContainer>
+          </MobileMain>
         </MobileContainer>
       </Mobile>
     </>
