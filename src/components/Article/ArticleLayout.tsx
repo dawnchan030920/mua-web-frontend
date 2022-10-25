@@ -183,12 +183,6 @@ const MobileSearchBoxContainer = styled.div.attrs<{ active: boolean }>(
   }}
 `;
 
-const SlideFromLeft = keyframes`
-  0% {
-    transform: translateX(-100%);
-  }
-`
-
 const SideBarBoxStyle = styled.div`
   height: 100%;
   width: 100%;
@@ -204,18 +198,18 @@ const SideBarBoxStyle = styled.div`
 const MobileSideBarContainer = styled.div.attrs<{ active: boolean }>(() => {})<{
   active: boolean;
 }>`
-  animation: ${SlideFromLeft} 1s cubic-bezier(0.8,0,0.1,1);
   z-index: 10;
   position: fixed;
   top: 0px;
   left: 48px;
   height: 100%;
   width: calc(100% - 48px);
-  display: none;
+  transform: translateX(-100%);
+  transition: transform 1s cubic-bezier(0.8,0,0.1,1);
   ${(props) => {
     if (props.active)
       return `
-       display: block; 
+       transform: translateX(0px); 
       `;
   }}
 `;
