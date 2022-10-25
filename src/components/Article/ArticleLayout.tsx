@@ -17,8 +17,8 @@ import {
 import ControllableInput from "../Basic/ControllableInput";
 import ControllabelInput from "../Basic/ControllableInput";
 import StyledNavLink from "../Styled/StyledNavLink";
-
-type ArticleLayoutProps = PropsWithChildren<{ titles: TitleType[] }>;
+import { Header1 } from "../Basic/Header";
+import TOC from "../Basic/TOC";
 
 type TitleType = {
   header: string;
@@ -26,9 +26,7 @@ type TitleType = {
   id: string;
 };
 
-type MobileTOCItemProps = {
-  isActive: boolean;
-};
+type ArticleLayoutProps = PropsWithChildren<{ titles: TitleType[]; }>;
 
 const MobileContainer = styled.div`
   display: grid;
@@ -52,101 +50,7 @@ const MobileSide = styled.div`
   background-color: #fafafa;
 `;
 
-const MobileTOCContainer = styled.div`
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  margin-bottom: auto;
-  &::before {
-    z-index: 2;
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 1.4vh;
-    background-image: linear-gradient(
-      rgba(250, 250, 250, 1),
-      rgba(250, 250, 250, 0.2)
-    );
-  }
-  &::after {
-    z-index: 2;
-    content: "";
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 1.4vh;
-    background-image: linear-gradient(
-      rgba(250, 250, 250, 0.2),
-      rgba(250, 250, 250, 1)
-    );
-  }
-`;
 
-const MobileTOCList = styled.div`
-  width: 100%;
-  z-index: 1;
-  writing-mode: vertical-rl;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  gap: calc(0.5vh + 0.2rem);
-  overflow: auto;
-  padding: 1.2vh 0px;
-
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    width: 0 !important;
-  }
-`;
-
-const MobileTOCItem = styled.div.attrs<MobileTOCItemProps>(
-  () => {}
-)<MobileTOCItemProps>`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column-reverse;
-  padding: 8px 0px;
-  border-radius: 6px;
-  ${(props) => {
-    if (props.isActive)
-      return `
-        background-color: #EBEBEB;
-        & #activeindicator {
-          background-color: #456dc9;
-          height: 88%;
-        }
-        & #text {
-          font-weight: 600;
-        }
-    `;
-  }}
-`;
-
-const MobileTOCItemText = styled.a.attrs({
-  id: "text",
-})`
-  text-decoration: none;
-  font-size: calc(12px + 1.2vw);
-  color: #000000;
-  white-space: nowrap;
-  margin: 0px auto;
-`;
-
-const MobileTOCItemActiveindicator = styled.div.attrs({
-  id: "activeindicator",
-})`
-  width: 5px;
-  background-color: transparent;
-  border-radius: 4px;
-  height: 0px;
-  transition: all 0.18s;
-`;
 
 const MobileMain = styled.div`
   grid-column: 2;
@@ -255,20 +159,7 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
             <SubtleButton
               icon={<img src={ReadingListUrl} alt="sibling articles" />}
             />
-            <MobileTOCContainer>
-              <MobileTOCList>
-                {props.titles.map((value, _index, _array) => {
-                  return (
-                    <MobileTOCItem isActive={value.id == currentId}>
-                      <MobileTOCItemActiveindicator />
-                      <MobileTOCItemText href={"#" + value.id}>
-                        {value.header}
-                      </MobileTOCItemText>
-                    </MobileTOCItem>
-                  );
-                })}
-              </MobileTOCList>
-            </MobileTOCContainer>
+            <TOC titles={props.titles} currentId = {currentId} />
             <a href="#">
               <SubtleButton
                 icon={<img src={ChevronUpUrl} alt="back tp top" />}
@@ -291,6 +182,9 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
             </MobileSearchBoxContainer>
             <MobileSideBarContainer active={isNavOpen}>
               <SideBarBoxStyle>
+                <div>
+                  <Header1>站点</Header1>
+                </div>
                 <StyledNavLink>首页</StyledNavLink>
                 <StyledNavLink>学校</StyledNavLink>
                 <StyledNavLink>联合活动</StyledNavLink>
