@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Desktop, Tablet, Mobile } from "../MediaQuery/MediaQueryWrapper";
 import { LogoLarge, LogoSmall } from "../Basic/Logo";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ import {
 } from "ahooks";
 import ControllableInput from "../Basic/ControllableInput";
 import ControllabelInput from "../Basic/ControllableInput";
+import StyledNavLink from "../Styled/StyledNavLink";
 
 type ArticleLayoutProps = PropsWithChildren<{ titles: TitleType[] }>;
 
@@ -31,7 +32,7 @@ type MobileTOCItemProps = {
 
 const MobileContainer = styled.div`
   display: grid;
-  grid-template-columns: minmax(48px, 8%) 1fr;
+  grid-template-columns: 48px 1fr;
 `;
 
 const MobileSide = styled.div`
@@ -149,8 +150,6 @@ const MobileTOCItemActiveindicator = styled.div.attrs({
 
 const MobileMain = styled.div`
   grid-column: 2;
-  display: flex;
-  flex-direction: column;
 `;
 
 const SearchBoxStyle = styled.div.attrs({
@@ -164,7 +163,9 @@ const SearchBoxStyle = styled.div.attrs({
   display: none;
 `;
 
-const SearchBoxContainer = styled.div.attrs<{ active: boolean }>(() => {})<{
+const MobileSearchBoxContainer = styled.div.attrs<{ active: boolean }>(
+  () => {}
+)<{
   active: boolean;
 }>`
   z-index: 1;
@@ -174,11 +175,48 @@ const SearchBoxContainer = styled.div.attrs<{ active: boolean }>(() => {})<{
   height: 0px;
   ${(props) => {
     if (props.active) {
-      return `height: 48px;
+      return `height: 52px;
               & #searchbox {
                 display: block;
               }`;
     }
+  }}
+`;
+
+const SlideFromLeft = keyframes`
+  0% {
+    transform: translateX(-100%);
+  }
+`
+
+const SideBarBoxStyle = styled.div`
+  height: 100%;
+  width: 100%;
+  padding: 12px 18px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(250, 250, 250, 0.8);
+  backdrop-filter: blur(20px) saturate(80%);
+`;
+
+const MobileSideBarContainer = styled.div.attrs<{ active: boolean }>(() => {})<{
+  active: boolean;
+}>`
+  animation: ${SlideFromLeft} 1s cubic-bezier(0.8,0,0.1,1);
+  z-index: 10;
+  position: fixed;
+  top: 0px;
+  left: 48px;
+  height: 100%;
+  width: calc(100% - 48px);
+  display: none;
+  ${(props) => {
+    if (props.active)
+      return `
+       display: block; 
+      `;
   }}
 `;
 
@@ -205,6 +243,7 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
 
   const [currentId, setCurrentId] = useState<string>();
   const [isSearchOpen, { toggle: toggleSearchOpen }] = useBoolean(false);
+  const [isNavOpen, { toggle: toggleNavOpen }] = useBoolean(false);
   const [searchText, setSearchText] = useState<string>("");
 
   return (
@@ -217,6 +256,7 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
             </Link>
             <SubtleButton
               icon={<img src={ListIconUrl} alt="first class list" />}
+              onClick={() => toggleNavOpen()}
             />
             <SubtleButton
               icon={<img src={ReadingListUrl} alt="sibling articles" />}
@@ -241,25 +281,29 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
               />
             </a>
             <SubtleButton
-              icon={
-                <img
-                  src={SearchIconUrl}
-                  alt="search"
-                  onClick={() => toggleSearchOpen()}
-                />
-              }
+              icon={<img src={SearchIconUrl} alt="search" />}
+              onClick={() => toggleSearchOpen()}
             />
           </MobileSide>
           <MobileMain>
             <div>{props.children}</div>
-            <SearchBoxContainer active={isSearchOpen}>
+            <MobileSearchBoxContainer active={isSearchOpen}>
               <SearchBoxStyle>
                 <ControllabelInput
                   value={searchText}
                   onChange={setSearchText}
                 />
               </SearchBoxStyle>
-            </SearchBoxContainer>
+            </MobileSearchBoxContainer>
+            <MobileSideBarContainer active={isNavOpen}>
+              <SideBarBoxStyle>
+                <StyledNavLink>首页</StyledNavLink>
+                <StyledNavLink>学校</StyledNavLink>
+                <StyledNavLink>联合活动</StyledNavLink>
+                <StyledNavLink>联合项目</StyledNavLink>
+                <StyledNavLink>复原</StyledNavLink>
+              </SideBarBoxStyle>
+            </MobileSideBarContainer>
           </MobileMain>
         </MobileContainer>
       </Mobile>

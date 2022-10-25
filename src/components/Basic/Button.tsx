@@ -4,6 +4,7 @@ import styled from "styled-components";
 type ButtonProps = {
   icon?: ReactElement;
   text?: string;
+  onClick?: () => void;
 };
 
 const ButtonStyle = styled.div`
@@ -41,7 +42,7 @@ const SubtleButtonStyle = styled(ButtonStyle)`
 
 const SubtleButton: React.FC<ButtonProps> = (props) => {
   return (
-    <SubtleButtonStyle>
+    <SubtleButtonStyle onClick={props.onClick}>
       <IconContainerStyle>{props.icon}</IconContainerStyle>
       <TextContainerStyle>{props.text}</TextContainerStyle>
     </SubtleButtonStyle>
