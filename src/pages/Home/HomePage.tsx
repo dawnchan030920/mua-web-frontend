@@ -3,20 +3,7 @@ import ArticleLayout from "../../components/Article/ArticleLayout";
 
 const HomePage: React.FC<{}> = () => {
   return (
-    <ArticleLayout
-      titles={[
-        {
-          header: "header1",
-          level: 1,
-          id: "header1",
-        },
-        {
-          header: "header2",
-          level: 2,
-          id: "header2",
-        },
-      ]}
-    >
+    <ArticleLayout>
       <h1 id="header1">This is header1</h1>
       <br />
       <br />
