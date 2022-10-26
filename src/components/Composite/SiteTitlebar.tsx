@@ -4,6 +4,7 @@ import {} from "ahooks";
 import { SubtleButton } from "../Basic/Button";
 import Logo from "../Basic/Logo";
 import { ReactComponent as List24 } from "../../assets/icons/list24.svg";
+import { ReactComponent as Person24 } from "../../assets/icons/person24.svg";
 
 type SiteTitlebarProps = PropsWithChildren<{}>;
 
@@ -45,7 +46,7 @@ const SiteTitlebar: React.FC<SiteTitlebarProps> = () => {
         <Logo />
       </CenterContainer>
       <RightContainer>
-        <SubtleButton icon={<List24 />} />
+        <SubtleButton icon={<Person24 />} />
       </RightContainer>
     </SiteTitlebarContainer>
   );

@@ -17,7 +17,9 @@ type TOCItemProps = {
 
 const MobileTOCContainer = styled.div`
   width: 100%;
+  height: 100%;
   overflow: hidden;
+  border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,10 +31,10 @@ const MobileTOCContainer = styled.div`
     position: absolute;
     top: 0;
     width: 100%;
-    height: 0.5rem;
+    height: 0.9rem;
     background-image: linear-gradient(
       rgba(250, 250, 250, 1),
-      rgba(250, 250, 250, 0.2)
+      rgba(250, 250, 250, 0)
     );
   }
   &::after {
@@ -41,9 +43,9 @@ const MobileTOCContainer = styled.div`
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 0.5rem;
+    height: 0.9rem;
     background-image: linear-gradient(
-      rgba(250, 250, 250, 0.2),
+      rgba(250, 250, 250, 0),
       rgba(250, 250, 250, 1)
     );
   }
@@ -67,7 +69,7 @@ const MobileTOCList = styled.div`
 `;
 
 const MobileTOCItem = styled.div.attrs<TOCItemProps>(() => {})<TOCItemProps>`
-  width: 100%;
+  width: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,7 +119,7 @@ const TOC: React.FC<TOCProps> = (props) => {
     props.titles.forEach((value, _index, _array) => {
       element = document.getElementById(value.id);
       top = element?.getBoundingClientRect()?.top;
-      if (top != undefined && top <= 30) {
+      if (top != undefined && top <= 80) {
         tempId = value.id;
       }
     });

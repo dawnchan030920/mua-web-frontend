@@ -12,12 +12,11 @@ const SubtleButtonStyled = styled.button`
   gap: 0.2rem;
   padding: 0.3rem 0.3rem;
   background-color: transparent;
-  border-color: transparent;
   border-radius: 0.4rem;
+  border-color: transparent;
 
   &:hover {
-    border: solid 1px rgb(243, 243, 243);
-    background-color: rgb(243, 237, 237);
+    background-color: rgb(237, 237, 237);
   }
 `;
 
