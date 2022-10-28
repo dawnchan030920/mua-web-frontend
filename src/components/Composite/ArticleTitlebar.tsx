@@ -2,10 +2,13 @@ import React, { PropsWithChildren, ReactNode } from "react";
 import styled from "styled-components";
 import {} from "ahooks";
 import { ReactComponent as ChevronLeft24 } from "../../assets/icons/chevronLeft24.svg";
+import { SubtleButton, LinkButton } from "../Basic/Button";
 
 type ArticleTitlebarProps = PropsWithChildren<{
   categoryIcon: ReactNode;
+  categoryLink: string;
   title: string;
+  func: () => void;
 }>;
 
 const ArticleTitlebarContainer = styled.div`
@@ -30,10 +33,10 @@ const ArticleTitlebar: React.FC<ArticleTitlebarProps> = (props) => {
   return (
     <ArticleTitlebarContainer>
       <ArticleTitlebarContent>
-        {props.categoryIcon}
+        <LinkButton link={props.categoryLink} icon={props.categoryIcon} />
         {props.title}
       </ArticleTitlebarContent>
-      <ChevronLeft24 />
+      <SubtleButton icon={<ChevronLeft24 />} click={props.func} />
     </ArticleTitlebarContainer>
   );
 };

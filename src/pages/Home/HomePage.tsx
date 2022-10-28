@@ -1,27 +1,30 @@
 import React, { useState } from "react";
-import ArticleLayout from "../../components/Article/ArticleLayout";
+import ArticleLayout from "../../components/Layout/ArticleLayout";
 import { ReactComponent as Home24 } from "../../assets/icons/home24.svg";
 
 const HomePage: React.FC<{}> = () => {
   return (
     <ArticleLayout
       title="Home Test Article"
-      titles={[
+      passageTitles={[
         {
-          header: "header1",
+          header: "This is header 1",
           level: 2,
           id: "header1",
         },
         {
-          header: "header2",
+          header: "This is header 2",
           level: 2,
           id: "header2",
         },
       ]}
+      categoryLink="/"
       categoryIcon={<Home24 />}
     >
       <h1 id="header1">This is header1</h1>
-      <br />
+      <p>
+        何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸何青逸
+      </p>
       <br />
       <br />
       <br />

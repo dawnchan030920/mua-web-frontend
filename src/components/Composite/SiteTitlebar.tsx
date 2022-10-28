@@ -6,7 +6,10 @@ import Logo from "../Basic/Logo";
 import { ReactComponent as List24 } from "../../assets/icons/list24.svg";
 import { ReactComponent as Person24 } from "../../assets/icons/person24.svg";
 
-type SiteTitlebarProps = PropsWithChildren<{}>;
+type SiteTitlebarProps = {
+  onNavClick?: () => void;
+  onAccoundClick?: () => void;
+};
 
 const SiteTitlebarContainer = styled.div`
   display: grid;
@@ -36,11 +39,13 @@ const RightContainer = styled.div`
   align-items: center;
 `;
 
-const SiteTitlebar: React.FC<SiteTitlebarProps> = () => {
+const SiteTitlebar: React.FC<SiteTitlebarProps> = (props) => {
   return (
     <SiteTitlebarContainer>
       <LeftContainer>
-        <SubtleButton icon={<List24 />} />
+        <div id="nav-button">
+          <SubtleButton icon={<List24 />} click={props.onNavClick} />
+        </div>
       </LeftContainer>
       <CenterContainer>
         <Logo />

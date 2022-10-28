@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useControllableValue } from "ahooks";
 import styled from "styled-components";
+import { ReactComponent as Search20 } from "../../assets/icons/search20.svg";
 
 const InputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
   padding: 2px 6px;
   border-radius: 4px;
   background-color: #fff;
@@ -43,6 +47,7 @@ const ControllabelInput: React.FC<any> = (props) => {
 
   return (
     <InputWrapper>
+      <Search20 />
       <ControllableInputStyle
         value={state}
         onChange={(e) => setState(e.target.value)}

@@ -133,9 +133,9 @@ const TOC: React.FC<TOCProps> = (props) => {
     <Mobile>
       <MobileTOCContainer>
         <MobileTOCList>
-          {props.titles.map((value, _index, _array) => {
+          {props.titles.map((value, index, _array) => {
             return (
-              <MobileTOCItem isActive={value.id == currentId}>
+              <MobileTOCItem isActive={value.id == currentId} key={index}>
                 <MobileTOCItemActiveindicator />
                 <MobileTOCItemText href={"#" + value.id}>
                   {value.header}
