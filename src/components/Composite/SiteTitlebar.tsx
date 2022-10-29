@@ -8,7 +8,7 @@ import { ReactComponent as Person24 } from "../../assets/icons/person24.svg";
 
 type SiteTitlebarProps = {
   onNavClick?: () => void;
-  onAccoundClick?: () => void;
+  onManageClick?: () => void;
 };
 
 const SiteTitlebarContainer = styled.div`
@@ -51,7 +51,9 @@ const SiteTitlebar: React.FC<SiteTitlebarProps> = (props) => {
         <Logo />
       </CenterContainer>
       <RightContainer>
-        <SubtleButton icon={<Person24 />} />
+        <div id="manage-button">
+          <SubtleButton icon={<Person24 />} click={props.onManageClick} />
+        </div>
       </RightContainer>
     </SiteTitlebarContainer>
   );

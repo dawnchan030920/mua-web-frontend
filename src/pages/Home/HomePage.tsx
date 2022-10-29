@@ -4,13 +4,6 @@ import { ReactComponent as Home24 } from "../../assets/icons/home24.svg";
 import useAxios from "axios-hooks";
 
 const HomePage: React.FC<{}> = () => {
-  const [{data, loading, error}, refetch] = useAxios(
-    "/api/passage/getPassageList/2"
-  );
-
-  if (loading) return <div>Loading</div>
-	if (error) return <p>Error</p>
-
   return (
     <>
       <ArticleLayout
@@ -32,8 +25,6 @@ const HomePage: React.FC<{}> = () => {
       >
         <h2 id="header1">This is header1</h2>
         <h2 id="header2">This is header2</h2>
-
-				<pre>{JSON.stringify(data, null, 2)}</pre>
       </ArticleLayout>
     </>
   );

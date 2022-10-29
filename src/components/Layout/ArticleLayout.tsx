@@ -6,6 +6,7 @@ import SiteTitlebar from "../Composite/SiteTitlebar";
 import { Mobile } from "../MediaQuery/MediaQueryWrapper";
 import ArticleTitlebar from "../Composite/ArticleTitlebar";
 import Navigation from "../Composite/Navigation";
+import Login from "../Composite/Login";
 import HomePage from "../../pages/Home/HomePage";
 import { ReactComponent as Home20 } from "../../assets/icons/home20.svg";
 import { ReactComponent as Balloon20 } from "../../assets/icons/balloon20.svg";
@@ -82,17 +83,37 @@ const NavigationPosition = styled.div.attrs<{ isActive: boolean }>({})<{
   transition-timing-function: cubic-bezier(0.8, 0, 0.1, 1);
 `;
 
+const LoginPosition = styled.div.attrs<{ isActive: boolean }>({})<{
+  isActive: boolean;
+}>`
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 6;
+  transform: translateY(${(props) => (props.isActive ? `0` : `250px`)});
+  transition: transform 0.7s;
+  transition-timing-function: cubic-bezier(0.8, 0, 0.1, 1);
+`;
+
 const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
   const [tocOpen, { toggle: toggleTocOpen }] = useToggle();
   const [navOpen, { toggle: toggleNavOpen }] = useToggle();
+  const [loginOpen, { toggle: toggleLoginOpen }] = useToggle();
   const navigationPanelRef = useRef<HTMLDivElement>(null);
+  const loginPanelRef = useRef<HTMLDivElement>(null);
   useClickAway(
     () => {
       if (navOpen == true) {
         toggleNavOpen();
       }
     },
-    [navigationPanelRef, document.getElementById("nav-button")],
+    [
+      navigationPanelRef,
+      document.getElementById("nav-button"),
+      document.getElementById("manage-button"),
+    ],
     ["click", "scroll", "contextmenu"]
   );
 
@@ -100,7 +121,10 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
     <>
       <StackContainer>
         <SiteTitlebarPosition>
-          <SiteTitlebar onNavClick={toggleNavOpen} />
+          <SiteTitlebar
+            onNavClick={toggleNavOpen}
+            onManageClick={toggleLoginOpen}
+          />
         </SiteTitlebarPosition>
         <ArticleTitleBarPosition>
           <ArticleTitlebar
@@ -149,6 +173,9 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
           ]}
         />
       </NavigationPosition>
+      <LoginPosition isActive={loginOpen} ref={loginPanelRef}>
+        <Login />
+      </LoginPosition>
     </>
   );
 };

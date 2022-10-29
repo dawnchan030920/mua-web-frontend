@@ -2,7 +2,7 @@ import React, { useState, ReactNode } from "react";
 import styled from "styled-components";
 import {} from "ahooks";
 import { Link, NavLink } from "react-router-dom";
-import ControllableInput from "../Basic/ControllableInput";
+import { SearchBox } from "../Basic/ControllableInput";
 
 type NavigationProps = {
   sections: {
@@ -94,7 +94,7 @@ const NavigationItemContentStyle = styled.div`
   align-items: center;
 
   gap: 4px;
-`
+`;
 
 const Navigation: React.FC<NavigationProps> = (props) => {
   const [searchText, setSearchText] = useState<string>("");
@@ -102,7 +102,7 @@ const Navigation: React.FC<NavigationProps> = (props) => {
   return (
     <NavigationPanel>
       <SearchPosition>
-        <ControllableInput value={searchText} onChange={setSearchText} />
+        <SearchBox value={searchText} onChange={setSearchText} />
       </SearchPosition>
       {props.sections.map((value, index, _array) => {
         return (
