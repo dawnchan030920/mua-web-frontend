@@ -4,6 +4,7 @@ import {} from "ahooks";
 import { Password, TextField } from "../Basic/ControllableInput";
 import { OutlineButton } from "../Basic/Button";
 import { ReactComponent as Upload20 } from "../../assets/icons/upload20.svg";
+import { ReactComponent as Person20 } from "../../assets/icons/person20.svg";
 import useAxios from "axios-hooks";
 
 type LoginProps = {};
@@ -35,8 +36,14 @@ const PasswordPosition = styled.div`
   height: 2rem;
 `;
 
+const FieldContainer = styled.div`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+`;
+
 const Login: React.FC<LoginProps> = () => {
-  const [{ error }, loginRequest] = useAxios(
+  const [{ error, loading }, loginRequest] = useAxios(
     {
       url: "/api/auth/login",
       method: "POST",
@@ -53,33 +60,20 @@ const Login: React.FC<LoginProps> = () => {
         passwd: password,
       },
     });
-    setStatus(status);
-    setToken(token);
-    setCode(code);
-    setCause(cause);
   };
-
-  if (error) return <span>error</span>;
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const [status, setStatus] = useState();
-  const [token, setToken] = useState();
-  const [code, setCode] = useState();
-  const [cause, setCause] = useState();
-
   return (
     <LoginPanel>
       <h1>Login</h1>
-      <pre>
-        {status}
-        {token}
-        {code}
-        {cause}
-      </pre>
       <AccountPosition>
-        <TextField value={username} onChange={setUsername} />
+        <TextField
+          value={username}
+          onChange={setUsername}
+          icon={<Person20 />}
+        />
       </AccountPosition>
       <PasswordPosition>
         <Password value={password} onChange={setPassword} />

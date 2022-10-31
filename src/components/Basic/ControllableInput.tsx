@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useControllableValue } from "ahooks";
 import styled from "styled-components";
 import { ReactComponent as Search20 } from "../../assets/icons/search20.svg";
+import { ReactComponent as Password20 } from "../../assets/icons/password20.svg";
 
 const InputWrapper = styled.div`
   display: flex;
@@ -75,6 +76,7 @@ const TextField: React.FC<any> = (props) => {
 
   return (
     <InputWrapper>
+      {props.icon}
       <ControllableInputStyle
         value={state}
         onChange={(e) => setState(e.target.value)}
@@ -88,6 +90,7 @@ const Password: React.FC<any> = (props) => {
 
   return (
     <InputWrapper>
+      <Password20 />
       <ControllablePasswordStyle
         value={state}
         onChange={(e) => setState(e.target.value)}

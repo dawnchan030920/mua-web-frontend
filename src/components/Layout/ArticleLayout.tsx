@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useToggle, useClickAway } from "ahooks";
 import TOC from "../Composite/TOC";
 import SiteTitlebar from "../Composite/SiteTitlebar";
-import { Mobile } from "../MediaQuery/MediaQueryWrapper";
+import { Mobile, Tablet } from "../MediaQuery/MediaQueryWrapper";
 import ArticleTitlebar from "../Composite/ArticleTitlebar";
 import Navigation from "../Composite/Navigation";
 import Login from "../Composite/Login";
@@ -38,7 +38,7 @@ const ArticleTitleBarPosition = styled.div`
   top: 0px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
 
-  z-index: 999;
+  z-index: 5;
 `;
 
 const Content = styled.div`
@@ -69,7 +69,7 @@ const TOCPosition = styled.div.attrs<{ isActive: boolean }>({})<{
   }
 `;
 
-const NavigationPosition = styled.div.attrs<{ isActive: boolean }>({})<{
+const NavigationPositionMobile = styled.div.attrs<{ isActive: boolean }>({})<{
   isActive: boolean;
 }>`
   position: fixed;
@@ -77,10 +77,24 @@ const NavigationPosition = styled.div.attrs<{ isActive: boolean }>({})<{
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 5;
+  z-index: 999;
   transform: translateY(${(props) => (props.isActive ? `0` : `55vh`)});
   transition: transform 0.7s;
   transition-timing-function: cubic-bezier(0.8, 0, 0.1, 1);
+`;
+
+const NavigationPositionTablet = styled(NavigationPositionMobile).attrs<{
+  isActive: boolean;
+}>({})<{
+  isActive: boolean;
+}>`
+  position: fixed;
+  left: 0px;
+  top: 48px;
+  right: calc(100vw - 300px);
+  height: calc(100vh - 48px);
+  transform: translateX(${(props) => (props.isActive ? `0` : `-300px`)});
+  width: 300px;
 `;
 
 const LoginPosition = styled.div.attrs<{ isActive: boolean }>({})<{
@@ -97,6 +111,25 @@ const LoginPosition = styled.div.attrs<{ isActive: boolean }>({})<{
   transition-timing-function: cubic-bezier(0.8, 0, 0.1, 1);
 `;
 
+const NavigationPosition: React.FC<PropsWithChildren<{ isActive: boolean }>> = (
+  props
+) => {
+  return (
+    <>
+      <Mobile>
+        <NavigationPositionMobile isActive={props.isActive}>
+          {props.children}
+        </NavigationPositionMobile>
+      </Mobile>
+      <Tablet>
+        <NavigationPositionTablet isActive={props.isActive}>
+          {props.children}
+        </NavigationPositionTablet>
+      </Tablet>
+    </>
+  );
+};
+
 const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
   const [tocOpen, { toggle: toggleTocOpen }] = useToggle();
   const [navOpen, { toggle: toggleNavOpen }] = useToggle();
@@ -109,12 +142,17 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
         toggleNavOpen();
       }
     },
-    [
-      navigationPanelRef,
-      document.getElementById("nav-button"),
-      document.getElementById("manage-button"),
-    ],
+    [navigationPanelRef, document.getElementById("nav-button")],
     ["click", "scroll", "contextmenu"]
+  );
+  useClickAway(
+    () => {
+      if (loginOpen == true) {
+        toggleLoginOpen();
+      }
+    },
+    [loginPanelRef, document.getElementById("manage-button")],
+    ["click", "contextmenu"]
   );
 
   return (
@@ -139,39 +177,41 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
           <TOC titles={props.passageTitles} />
         </TOCPosition>
       </StackContainer>
-      <NavigationPosition isActive={navOpen} ref={navigationPanelRef}>
-        <Navigation
-          sections={[
-            {
-              title: "Site",
-              links: [
-                {
-                  tag: "Home",
-                  to: "/",
-                  icon: <Home20 />,
-                  end: true,
-                },
-                {
-                  tag: "Activities",
-                  to: "/activity",
-                  icon: <Balloon20 />,
-                  end: false,
-                },
-              ],
-            },
-            {
-              title: "Function",
-              links: [
-                {
-                  tag: "Contact",
-                  to: "/contact",
-                  icon: <Call20 />,
-                  end: false,
-                },
-              ],
-            },
-          ]}
-        />
+      <NavigationPosition isActive={navOpen}>
+        <div ref={navigationPanelRef}>
+          <Navigation
+            sections={[
+              {
+                title: "Site",
+                links: [
+                  {
+                    tag: "Home",
+                    to: "/",
+                    icon: <Home20 />,
+                    end: true,
+                  },
+                  {
+                    tag: "Activities",
+                    to: "/activity",
+                    icon: <Balloon20 />,
+                    end: false,
+                  },
+                ],
+              },
+              {
+                title: "Function",
+                links: [
+                  {
+                    tag: "Contact",
+                    to: "/contact",
+                    icon: <Call20 />,
+                    end: false,
+                  },
+                ],
+              },
+            ]}
+          />
+        </div>
       </NavigationPosition>
       <LoginPosition isActive={loginOpen} ref={loginPanelRef}>
         <Login />
