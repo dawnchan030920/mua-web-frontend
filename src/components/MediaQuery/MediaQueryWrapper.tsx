@@ -18,4 +18,13 @@ const Mobile: React.FC<MediaQueryProps> = (props) => {
   return <>{isMobile && props.children}</>;
 };
 
-export { Desktop, Tablet, Mobile };
+const MobileOrTablet: React.FC<PropsWithChildren<{}>> = (props) => {
+  return (
+    <>
+      <Mobile>{props.children}</Mobile>
+      <Tablet>{props.children}</Tablet>
+    </>
+  );
+};
+
+export { Desktop, Tablet, Mobile, MobileOrTablet };

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import {} from "ahooks";
 import { Password, TextField } from "../Basic/ControllableInput";
 import { OutlineButton } from "../Basic/Button";
 import { ReactComponent as Upload20 } from "../../assets/icons/upload20.svg";
@@ -23,7 +22,7 @@ const LoginPanel = styled.div`
   gap: 0.8rem;
   padding: 1rem 1rem;
   border: none;
-  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.12);
 `;
 
 const AccountPosition = styled.div`
@@ -36,14 +35,8 @@ const PasswordPosition = styled.div`
   height: 2rem;
 `;
 
-const FieldContainer = styled.div`
-  display: flex;
-  gap: 4px;
-  align-items: center;
-`;
-
 const Login: React.FC<LoginProps> = () => {
-  const [{ error, loading }, loginRequest] = useAxios(
+  const [{}, loginRequest] = useAxios(
     {
       url: "/api/auth/login",
       method: "POST",
@@ -53,7 +46,7 @@ const Login: React.FC<LoginProps> = () => {
 
   const loginAction = async () => {
     const {
-      data: { status, token, code, cause },
+      data: {},
     } = await loginRequest({
       data: {
         username: username,

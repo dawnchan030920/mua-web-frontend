@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, ReactNode } from "react";
 import styled from "styled-components";
-import {} from "ahooks";
 import { ReactComponent as ChevronLeft24 } from "../../assets/icons/chevronLeft24.svg";
 import { SubtleButton, LinkButton } from "../Basic/Button";
+import { MobileOrTablet } from "../MediaQuery/MediaQueryWrapper";
 
 type ArticleTitlebarProps = PropsWithChildren<{
   categoryIcon: ReactNode;
@@ -17,7 +17,7 @@ const ArticleTitlebarContainer = styled.div`
   padding: 0.25rem 1rem;
   align-items: center;
   backdrop-filter: saturate(180%) blur(20px) brightness(80%);
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.6);
 `;
 
 const ArticleTitlebarContent = styled.div`
@@ -36,7 +36,9 @@ const ArticleTitlebar: React.FC<ArticleTitlebarProps> = (props) => {
         <LinkButton link={props.categoryLink} icon={props.categoryIcon} />
         {props.title}
       </ArticleTitlebarContent>
-      <SubtleButton icon={<ChevronLeft24 />} click={props.func} />
+      <MobileOrTablet>
+        <SubtleButton icon={<ChevronLeft24 />} click={props.func} />
+      </MobileOrTablet>
     </ArticleTitlebarContainer>
   );
 };

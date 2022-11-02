@@ -1,10 +1,12 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
 import styled from "styled-components";
-import {} from "ahooks";
 import { SubtleButton } from "../Basic/Button";
 import Logo from "../Basic/Logo";
 import { ReactComponent as List24 } from "../../assets/icons/list24.svg";
 import { ReactComponent as Person24 } from "../../assets/icons/person24.svg";
+import { MobileOrTablet, Desktop } from "../MediaQuery/MediaQueryWrapper";
+import Navigation from "../Composite/Navigation";
+import {SearchBox} from "../Basic/ControllableInput";
 
 type SiteTitlebarProps = {
   onNavClick?: () => void;
@@ -37,24 +39,48 @@ const RightContainer = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
+  gap: 0.25rem;
 `;
+
+const SitebarSearchboxPosition = styled.div`
+  height: 32px;
+`
 
 const SiteTitlebar: React.FC<SiteTitlebarProps> = (props) => {
   return (
     <SiteTitlebarContainer>
-      <LeftContainer>
-        <div id="nav-button">
-          <SubtleButton icon={<List24 />} click={props.onNavClick} />
-        </div>
-      </LeftContainer>
-      <CenterContainer>
-        <Logo />
-      </CenterContainer>
-      <RightContainer>
-        <div id="manage-button">
-          <SubtleButton icon={<Person24 />} click={props.onManageClick} />
-        </div>
-      </RightContainer>
+      <MobileOrTablet>
+        <LeftContainer>
+          <div id="nav-button">
+            <SubtleButton icon={<List24 />} click={props.onNavClick} />
+          </div>
+        </LeftContainer>
+        <CenterContainer>
+          <Logo />
+        </CenterContainer>
+        <RightContainer>
+          <div id="manage-button">
+            <SubtleButton icon={<Person24 />} click={props.onManageClick} />
+          </div>
+        </RightContainer>
+      </MobileOrTablet>
+
+      <Desktop>
+        <LeftContainer>
+          <Logo />
+        </LeftContainer>
+        <CenterContainer>
+          <Navigation />
+        </CenterContainer>
+        <RightContainer>
+          <SitebarSearchboxPosition>
+            <SearchBox />
+          </SitebarSearchboxPosition>
+          <div id="manage-button">
+            <SubtleButton icon={<Person24 />} click={props.onManageClick} />
+          </div>
+        </RightContainer>
+      </Desktop>
     </SiteTitlebarContainer>
   );
 };

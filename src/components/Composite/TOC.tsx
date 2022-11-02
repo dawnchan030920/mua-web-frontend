@@ -1,7 +1,7 @@
 import { useEventListener } from "ahooks";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Mobile } from "../MediaQuery/MediaQueryWrapper";
+import { MobileOrTablet, Desktop } from "../MediaQuery/MediaQueryWrapper";
 
 type TitleType = {
   header: string;
@@ -15,7 +15,9 @@ type TOCItemProps = {
   isActive: boolean;
 };
 
-const MobileTOCContainer = styled.div`
+const VerticleTOCContainer = styled.div`
+  box-shadow: 1px 0 8px rgba(0, 0, 0, 0.28);
+  background-color: rgb(250, 250, 250);
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -25,6 +27,7 @@ const MobileTOCContainer = styled.div`
   align-items: center;
   position: relative;
   margin-bottom: auto;
+
   &::before {
     z-index: 2;
     content: "";
@@ -32,11 +35,10 @@ const MobileTOCContainer = styled.div`
     top: 0;
     width: 100%;
     height: 0.9rem;
-    background-image: linear-gradient(
-      rgba(250, 250, 250, 1),
-      rgba(250, 250, 250, 0)
-    );
+    background-image: linear-gradient(rgba(250, 250, 250, 1),
+    rgba(250, 250, 250, 0));
   }
+
   &::after {
     z-index: 2;
     content: "";
@@ -44,14 +46,25 @@ const MobileTOCContainer = styled.div`
     bottom: 0;
     width: 100%;
     height: 0.9rem;
-    background-image: linear-gradient(
-      rgba(250, 250, 250, 0),
-      rgba(250, 250, 250, 1)
-    );
+    background-image: linear-gradient(rgba(250, 250, 250, 0),
+    rgba(250, 250, 250, 1));
   }
 `;
 
-const MobileTOCList = styled.div`
+const HorizontalTOCContainer = styled(VerticleTOCContainer)`
+  box-shadow: none;
+  background-color: transparent;
+  &::before {
+    content: "";
+    display: none;
+  }
+  &::after {
+    content: "";
+    display: none;
+  }
+`;
+
+const VerticleTOCList = styled.div`
   width: 100%;
   z-index: 1;
   writing-mode: vertical-rl;
@@ -60,21 +73,27 @@ const MobileTOCList = styled.div`
   align-items: center;
   gap: 0.6rem;
   overflow: auto;
-  padding: 0.5rem 0px;
+  padding: 0.5rem 0;
 
   -ms-overflow-style: none;
+
   &::-webkit-scrollbar {
     width: 0 !important;
   }
 `;
 
-const MobileTOCItem = styled.div.attrs<TOCItemProps>(() => {})<TOCItemProps>`
+const HorizontalTOCList = styled(VerticleTOCList)`
+  writing-mode: horizontal-tb;
+  flex-direction: column;
+`;
+
+const VerticleTOCItem = styled.div.attrs<TOCItemProps>(() => {})<TOCItemProps>`
   width: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column-reverse;
-  padding: 0.5rem 0px;
+  padding: 0.5rem 0;
   border-radius: 0.35rem;
   ${(props) => {
     if (props.isActive)
@@ -91,24 +110,70 @@ const MobileTOCItem = styled.div.attrs<TOCItemProps>(() => {})<TOCItemProps>`
   }}
 `;
 
-const MobileTOCItemText = styled.a.attrs({
+const HorizontalTOCItem = styled.div.attrs<TOCItemProps>(
+  () => {}
+)<TOCItemProps>`
+  width: 100%;
+  word-wrap: break-word;
+  background-color: transparent;
+  display: flex;
+  ${(props) => {
+    if (props.isActive)
+      return `
+        & #text {
+          color: rgb(69, 109, 201);
+          font-weight: 600;
+        }
+        & #activeindicator {
+          background-color: rgb(69, 109, 201);
+          height: 100%;
+        }
+    `;
+  }}
+`;
+
+const VerticleTOCItemText = styled.a.attrs({
   id: "text",
 })`
   text-decoration: none;
   font-size: 1rem;
   color: #000000;
   white-space: nowrap;
-  margin: 0px auto;
+  margin: 0 auto;
+  max-height: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
-const MobileTOCItemActiveindicator = styled.div.attrs({
+const HorizontalTOCItemText = styled(VerticleTOCItemText)`
+  white-space: normal;
+  margin-left: 0.5rem;
+`;
+
+const VerticleTOCItemActiveindicator = styled.div.attrs({
   id: "activeindicator",
 })`
   width: 0.25rem;
   background-color: transparent;
   border-radius: 0.25rem;
-  height: 0px;
+  height: 0;
   transition: all 0.18s;
+`;
+
+const HorizontalTOCItemActiveindicator = styled(VerticleTOCItemActiveindicator)`
+  width: 0.2rem;
+  border-radius: 0.1rem;
+`;
+
+const HorizontalTOCHeader = styled.div`
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  width: 100%;
+  font-size: x-large;
+  font-weight: 600;
+  letter-spacing: 0.4rem;
+  color: rgb(175, 175, 175);
 `;
 
 const TOC: React.FC<TOCProps> = (props) => {
@@ -130,22 +195,43 @@ const TOC: React.FC<TOCProps> = (props) => {
   useEventListener("scroll", () => setCurrentId(refreshCurrentId));
 
   return (
-    <Mobile>
-      <MobileTOCContainer>
-        <MobileTOCList>
-          {props.titles.map((value, index, _array) => {
-            return (
-              <MobileTOCItem isActive={value.id == currentId} key={index}>
-                <MobileTOCItemActiveindicator />
-                <MobileTOCItemText href={"#" + value.id}>
-                  {value.header}
-                </MobileTOCItemText>
-              </MobileTOCItem>
-            );
-          })}
-        </MobileTOCList>
-      </MobileTOCContainer>
-    </Mobile>
+    <>
+      <MobileOrTablet>
+        <VerticleTOCContainer>
+          <VerticleTOCList>
+            {props.titles.map((value, index, _array) => {
+              return (
+                <VerticleTOCItem isActive={value.id == currentId} key={index}>
+                  <VerticleTOCItemActiveindicator />
+                  <VerticleTOCItemText href={"#" + value.id}>
+                    {value.header}
+                  </VerticleTOCItemText>
+                </VerticleTOCItem>
+              );
+            })}
+          </VerticleTOCList>
+        </VerticleTOCContainer>
+      </MobileOrTablet>
+      <Desktop>
+        <HorizontalTOCContainer>
+          <HorizontalTOCHeader>
+            TOC({props.titles.length})
+          </HorizontalTOCHeader>
+          <HorizontalTOCList>
+            {props.titles.map((value, index, _array) => {
+              return (
+                <HorizontalTOCItem isActive={value.id == currentId} key={index}>
+                  <HorizontalTOCItemActiveindicator />
+                  <HorizontalTOCItemText href={"#" + value.id}>
+                    {value.header}
+                  </HorizontalTOCItemText>
+                </HorizontalTOCItem>
+              );
+            })}
+          </HorizontalTOCList>
+        </HorizontalTOCContainer>
+      </Desktop>
+    </>
   );
 };
 

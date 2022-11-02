@@ -3,14 +3,15 @@ import styled from "styled-components";
 import { useToggle, useClickAway } from "ahooks";
 import TOC from "../Composite/TOC";
 import SiteTitlebar from "../Composite/SiteTitlebar";
-import { Mobile, Tablet } from "../MediaQuery/MediaQueryWrapper";
+import {
+  Mobile,
+  Tablet,
+  MobileOrTablet,
+  Desktop,
+} from "../MediaQuery/MediaQueryWrapper";
 import ArticleTitlebar from "../Composite/ArticleTitlebar";
 import Navigation from "../Composite/Navigation";
 import Login from "../Composite/Login";
-import HomePage from "../../pages/Home/HomePage";
-import { ReactComponent as Home20 } from "../../assets/icons/home20.svg";
-import { ReactComponent as Balloon20 } from "../../assets/icons/balloon20.svg";
-import { ReactComponent as Call20 } from "../../assets/icons/call20.svg";
 
 type ArticleLayoutProps = PropsWithChildren<{
   passageTitles: {
@@ -26,19 +27,29 @@ type ArticleLayoutProps = PropsWithChildren<{
 const StackContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(9, 1fr);
+  @media (min-width: 992px) {
+    grid-template-columns: 1fr 3.5fr 1fr;
+  }
 `;
 
 const SiteTitlebarPosition = styled.div`
   grid-column: 1 / span 9;
+  @media (min-width: 992px) {
+    grid-column: 1 / span 3;
+  }
 `;
 
 const ArticleTitleBarPosition = styled.div`
   grid-column: 1 / span 9;
   position: sticky;
-  top: 0px;
+  top: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
 
   z-index: 5;
+
+  @media (min-width: 992px) {
+    grid-column: 1 / span 3;
+  }
 `;
 
 const Content = styled.div`
@@ -46,6 +57,9 @@ const Content = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
 
   z-index: 1;
+  @media (min-width: 992px) {
+    grid-column: 2;
+  }
 `;
 
 const TOCPosition = styled.div.attrs<{ isActive: boolean }>({})<{
@@ -57,15 +71,16 @@ const TOCPosition = styled.div.attrs<{ isActive: boolean }>({})<{
   margin-right: 1.2vw;
   grid-column: 9;
   height: calc(100vh - 48px - 2rem);
-  background-color: rgb(250, 250, 250);
   width: ${(props) => (props.isActive ? `40px` : `0px`)};
-  border-radius: 0.6rem;
-  box-shadow: 1px 0px 8px rgba(0, 0, 0, 0.28);
   justify-self: end;
   z-index: 2;
   transition: width 0.2s;
   & * {
     display: ${(props) => (props.isActive ? `auto` : `none`)};
+  }
+  @media (min-width: 992px) {
+    grid-column: 3;
+    width: ${(props) => (props.isActive ? `15vw` : `0vw`)};
   }
 `;
 
@@ -73,7 +88,7 @@ const NavigationPositionMobile = styled.div.attrs<{ isActive: boolean }>({})<{
   isActive: boolean;
 }>`
   position: fixed;
-  bottom: 0px;
+  bottom: 0;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -89,7 +104,7 @@ const NavigationPositionTablet = styled(NavigationPositionMobile).attrs<{
   isActive: boolean;
 }>`
   position: fixed;
-  left: 0px;
+  left: 0;
   top: 48px;
   right: calc(100vw - 300px);
   height: calc(100vh - 48px);
@@ -101,7 +116,7 @@ const LoginPosition = styled.div.attrs<{ isActive: boolean }>({})<{
   isActive: boolean;
 }>`
   position: fixed;
-  bottom: 0px;
+  bottom: 0;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -138,7 +153,7 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
   const loginPanelRef = useRef<HTMLDivElement>(null);
   useClickAway(
     () => {
-      if (navOpen == true) {
+      if (navOpen) {
         toggleNavOpen();
       }
     },
@@ -147,7 +162,7 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
   );
   useClickAway(
     () => {
-      if (loginOpen == true) {
+      if (loginOpen) {
         toggleLoginOpen();
       }
     },
@@ -173,46 +188,22 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
           />
         </ArticleTitleBarPosition>
         <Content>{props.children}</Content>
-        <TOCPosition isActive={tocOpen}>
-          <TOC titles={props.passageTitles} />
-        </TOCPosition>
+        <MobileOrTablet>
+          <TOCPosition isActive={tocOpen}>
+            <TOC titles={props.passageTitles} />
+          </TOCPosition>
+        </MobileOrTablet>
+        <Desktop>
+          <TOCPosition isActive={true}>
+            <TOC titles={props.passageTitles} />
+          </TOCPosition>
+        </Desktop>
       </StackContainer>
-      <NavigationPosition isActive={navOpen}>
-        <div ref={navigationPanelRef}>
-          <Navigation
-            sections={[
-              {
-                title: "Site",
-                links: [
-                  {
-                    tag: "Home",
-                    to: "/",
-                    icon: <Home20 />,
-                    end: true,
-                  },
-                  {
-                    tag: "Activities",
-                    to: "/activity",
-                    icon: <Balloon20 />,
-                    end: false,
-                  },
-                ],
-              },
-              {
-                title: "Function",
-                links: [
-                  {
-                    tag: "Contact",
-                    to: "/contact",
-                    icon: <Call20 />,
-                    end: false,
-                  },
-                ],
-              },
-            ]}
-          />
-        </div>
-      </NavigationPosition>
+      <div ref={navigationPanelRef}>
+        <NavigationPosition isActive={navOpen}>
+          <Navigation />
+        </NavigationPosition>
+      </div>
       <LoginPosition isActive={loginOpen} ref={loginPanelRef}>
         <Login />
       </LoginPosition>

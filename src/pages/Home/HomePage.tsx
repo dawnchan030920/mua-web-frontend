@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import ArticleLayout from "../../components/Layout/ArticleLayout";
 import { ReactComponent as Home24 } from "../../assets/icons/home24.svg";
-import useAxios from "axios-hooks";
 
-const HomePage: React.FC<{}> = () => {
+const HomePage: React.FC = () => {
   return (
     <>
       <ArticleLayout
@@ -19,12 +18,83 @@ const HomePage: React.FC<{}> = () => {
             level: 2,
             id: "header2",
           },
+          {
+            header:
+              "This is some long title I don't how he came up with such a bad idea...",
+            level: 2,
+            id: "long",
+          },
         ]}
         categoryLink="/"
         categoryIcon={<Home24 />}
       >
         <h2 id="header1">This is header1</h2>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
         <h2 id="header2">This is header2</h2>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <h2 id="long">
+          This is some long title I don't how he came up with such a bad idea...
+        </h2>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
+        <p>This time, do I win?</p>
       </ArticleLayout>
     </>
   );
