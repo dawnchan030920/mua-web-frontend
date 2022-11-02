@@ -1,12 +1,12 @@
 import React from "react";
 import ArticleLayout from "../../components/Layout/ArticleLayout";
-import { ReactComponent as Home24 } from "../../assets/icons/home24.svg";
+import {SiteNavKey} from "../../data/SiteNavData";
 
 const HomePage: React.FC = () => {
   return (
     <>
       <ArticleLayout
-        title="Home Test Article"
+          category={SiteNavKey.Home}
         passageTitles={[
           {
             header: "This is header 1",
@@ -25,8 +25,6 @@ const HomePage: React.FC = () => {
             id: "long",
           },
         ]}
-        categoryLink="/"
-        categoryIcon={<Home24 />}
       >
         <h2 id="header1">This is header1</h2>
         <p>This time, do I win?</p>

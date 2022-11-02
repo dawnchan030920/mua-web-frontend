@@ -18,8 +18,8 @@ const NavigationPanelMobileStyle = styled.div`
   width: 90vw;
   max-width: 500px;
   height: 55vh;
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: saturate(180%) blur(20px) brightness(80%);
+  background-color: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(20px) brightness(92%);
   border-radius: 1.5rem 1.5rem 0 0;
   overflow: auto;
   padding: 1.5rem 1.5rem;
@@ -60,6 +60,11 @@ const NavigationSection = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  
+  @media (min-width: 768px) and (max-width: 991px) {
+    align-items: start;
+    margin-left: 25%;
+  }
 `;
 
 const NavigationHeaderStyle = styled.span`
@@ -73,12 +78,16 @@ const NavigationListVerticle = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    align-items: start;
+  }
 `;
 
 const NavigationListHorizontal = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 2rem;
 `
 
 const BackContainer = styled.div.attrs<{ isActive: boolean }>({}) <{
@@ -111,8 +120,8 @@ const NavigationPanel: React.FC<PropsWithChildren<{}>> = (props) => {
 
 const VerticalSeparator = styled.hr`
   width: 0.3px;
-  margin: 0 0.5rem;
-  border: 0.1px solid rgb(235, 235, 235);
+  margin: 0 1rem;
+  border: 0.1px solid rgb(205, 205, 205);
 `
 
 const Navigation: React.FC<NavigationProps> = () => {

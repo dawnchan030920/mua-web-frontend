@@ -168,12 +168,11 @@ const HorizontalTOCItemActiveindicator = styled(VerticleTOCItemActiveindicator)`
 const HorizontalTOCHeader = styled.div`
   display: flex;
   justify-content: start;
-  flex-direction: column;
   width: 100%;
   font-size: x-large;
   font-weight: 600;
   letter-spacing: 0.4rem;
-  color: rgb(175, 175, 175);
+  color: rgb(73, 109, 193);
 `;
 
 const TOC: React.FC<TOCProps> = (props) => {
@@ -215,7 +214,7 @@ const TOC: React.FC<TOCProps> = (props) => {
       <Desktop>
         <HorizontalTOCContainer>
           <HorizontalTOCHeader>
-            TOC({props.titles.length})
+            目录({props.titles.length})
           </HorizontalTOCHeader>
           <HorizontalTOCList>
             {props.titles.map((value, index, _array) => {

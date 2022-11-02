@@ -16,8 +16,12 @@ const ArticleTitlebarContainer = styled.div`
   display: flex;
   padding: 0.25rem 1rem;
   align-items: center;
-  backdrop-filter: saturate(180%) blur(20px) brightness(80%);
-  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: rgba(255, 255, 255, 0.72);
+  
+  @media (min-width: 992px) {
+    padding: 0.25rem 14vw;
+  }
 `;
 
 const ArticleTitlebarContent = styled.div`

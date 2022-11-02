@@ -18,13 +18,14 @@ const SiteTitlebarContainer = styled.div`
   grid-template-columns: 1fr auto 1fr;
   height: 3rem;
   padding: 0.25rem 0.5rem;
+  background-color: rgb(243, 243, 243);
 `;
 
 const LeftContainer = styled.div`
   grid-column: 1;
   display: flex;
   justify-content: start;
-  align-items: center; ;
+  align-items: center;
 `;
 
 const CenterContainer = styled.div`

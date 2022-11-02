@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useControllableValue } from "ahooks";
 import styled from "styled-components";
 import { ReactComponent as Search20 } from "../../assets/icons/search20.svg";
@@ -65,7 +65,7 @@ const SearchBox: React.FC<any> = (props) => {
       <ControllableInputStyle
         value={state}
         onChange={(e) => setState(e.target.value)}
-        placeholder="Search"
+        placeholder="查找内容..."
       ></ControllableInputStyle>
     </InputWrapper>
   );

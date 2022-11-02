@@ -60,7 +60,7 @@ const Login: React.FC<LoginProps> = () => {
 
   return (
     <LoginPanel>
-      <h1>Login</h1>
+      <h1>登录</h1>
       <AccountPosition>
         <TextField
           value={username}

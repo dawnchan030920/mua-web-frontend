@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, ReactNode, useRef } from "react";
+import React, { PropsWithChildren, useRef } from "react";
 import styled from "styled-components";
 import { useToggle, useClickAway } from "ahooks";
 import TOC from "../Composite/TOC";
@@ -12,6 +12,7 @@ import {
 import ArticleTitlebar from "../Composite/ArticleTitlebar";
 import Navigation from "../Composite/Navigation";
 import Login from "../Composite/Login";
+import {SiteNavMap, SiteNavKey} from "../../data/SiteNavData";
 
 type ArticleLayoutProps = PropsWithChildren<{
   passageTitles: {
@@ -19,9 +20,7 @@ type ArticleLayoutProps = PropsWithChildren<{
     level: number;
     id: string;
   }[];
-  categoryLink: string;
-  categoryIcon: ReactNode;
-  title: string;
+  category: SiteNavKey;
 }>;
 
 const StackContainer = styled.div`
@@ -30,6 +29,7 @@ const StackContainer = styled.div`
   @media (min-width: 992px) {
     grid-template-columns: 1fr 3.5fr 1fr;
   }
+  background-color: rgb(247, 247, 249);
 `;
 
 const SiteTitlebarPosition = styled.div`
@@ -55,7 +55,7 @@ const ArticleTitleBarPosition = styled.div`
 const Content = styled.div`
   grid-column: 2 / span 7;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
-
+  background-color: white;
   z-index: 1;
   @media (min-width: 992px) {
     grid-column: 2;
@@ -181,9 +181,9 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
         </SiteTitlebarPosition>
         <ArticleTitleBarPosition>
           <ArticleTitlebar
-            categoryLink={props.categoryLink}
-            categoryIcon={props.categoryIcon}
-            title={props.title}
+            categoryLink={SiteNavMap[props.category].to}
+            categoryIcon={SiteNavMap[props.category].icon}
+            title={SiteNavMap[props.category].tag}
             func={toggleTocOpen}
           />
         </ArticleTitleBarPosition>

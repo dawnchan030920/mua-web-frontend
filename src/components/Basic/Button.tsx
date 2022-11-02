@@ -65,8 +65,6 @@ const NavigationItemContainer = styled(NavLink)`
 `;
 
 const NavigationItemStyleBase = styled.span`
-  font-size: 1.1rem;
-  
   &::after {
     content: "";
     display: block;
@@ -92,7 +90,7 @@ const NavigationItemStyle = styled(NavigationItemStyleBase)`
 
 const NavigationItemActiveStyle = styled(NavigationItemStyleBase)`
   color: rgb(71, 109, 197);
-  font-weight: 500;
+  font-weight: 600;
 
   &::after {
     background-color: rgb(71, 109, 197);
