@@ -48,6 +48,7 @@ const SearchBar = styled.div`
   gap: 0.25rem;
   position: sticky;
   top: 0;
+  z-index: 80;
 `;
 
 const SearchboxPosition = styled.div`

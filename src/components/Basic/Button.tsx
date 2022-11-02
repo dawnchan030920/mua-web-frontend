@@ -157,7 +157,7 @@ const NavlinkButton: React.FC<NavlinkButtonProps> = (props) => {
                     {props.icon}
                     {props.text}
                     <MobileOrTablet>
-                      <Lottie style={{height: `20px`}} animationData={arrow20Animation} loop={false} autoplay={false} lottieRef={arrowRef} />
+                      <Lottie style={{height: `20px`, zIndex: 10}} animationData={arrow20Animation} loop={false} autoplay={false} lottieRef={arrowRef} />
                     </MobileOrTablet>
                   </NavigationItemContentStyle>
                 </NavigationItemActiveStyle>
@@ -169,7 +169,7 @@ const NavlinkButton: React.FC<NavlinkButtonProps> = (props) => {
                     {props.icon}
                     {props.text}
                     <MobileOrTablet>
-                      <Lottie style={{height: `20px`}} animationData={arrow20Animation} loop={false} autoplay={false} lottieRef={arrowRef} />
+                      <Lottie style={{height: `20px`, zIndex: 10}} animationData={arrow20Animation} loop={false} autoplay={false} lottieRef={arrowRef} />
                     </MobileOrTablet>
                   </NavigationItemContentStyle>
                 </NavigationItemStyle>
