@@ -1,12 +1,12 @@
-import React, { PropsWithChildren, ReactNode } from "react";
+import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
 import { ReactComponent as ChevronLeft24 } from "../../assets/icons/chevronLeft24.svg";
 import { SubtleButton, LinkButton } from "../Basic/Button";
 import { MobileOrTablet } from "../MediaQuery/MediaQueryWrapper";
+import {SiteNavKey, SiteNavMap} from "../../data/SiteNavData";
 
 type ArticleTitlebarProps = PropsWithChildren<{
-  categoryIcon: ReactNode;
-  categoryLink: string;
+    category: SiteNavKey;
   title: string;
   func: () => void;
 }>;
@@ -37,7 +37,7 @@ const ArticleTitlebar: React.FC<ArticleTitlebarProps> = (props) => {
   return (
     <ArticleTitlebarContainer>
       <ArticleTitlebarContent>
-        <LinkButton link={props.categoryLink} icon={props.categoryIcon} />
+        <LinkButton link={SiteNavMap[props.category].to} icon={SiteNavMap[props.category].icon} />
         {props.title}
       </ArticleTitlebarContent>
       <MobileOrTablet>

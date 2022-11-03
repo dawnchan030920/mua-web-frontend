@@ -17,7 +17,7 @@ const ActivityPage: React.FC = () => {
           level: 2,
           id: "header02",
         }
-      ]} category={SiteNavKey.Activity}>
+      ]} category={SiteNavKey.Activity} title={`PID ${pid}`}>
         <h2 id={"header02"}>Test Header 1</h2>
         <p>Is this the so called {pid} activity?</p>
         <h2 id={"header02"}>Test Header 2</h2>

@@ -27,4 +27,13 @@ const MobileOrTablet: React.FC<PropsWithChildren<{}>> = (props) => {
   );
 };
 
-export { Desktop, Tablet, Mobile, MobileOrTablet };
+const DesktopOrTablet: React.FC<PropsWithChildren<{}>> = (props) => {
+  return (
+      <>
+        <Desktop>{props.children}</Desktop>
+        <Tablet>{props.children}</Tablet>
+      </>
+  )
+}
+
+export { Desktop, Tablet, Mobile, MobileOrTablet, DesktopOrTablet };

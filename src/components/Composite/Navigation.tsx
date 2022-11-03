@@ -64,7 +64,7 @@ const NavigationSection = styled.div`
   
   @media (min-width: 768px) and (max-width: 991px) {
     align-items: start;
-    margin-left: 25%;
+    padding-left: 12%;
   }
 `;
 
@@ -78,7 +78,7 @@ const NavigationListVerticle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.5rem;
 
   @media (min-width: 768px) and (max-width: 991px) {
     align-items: start;

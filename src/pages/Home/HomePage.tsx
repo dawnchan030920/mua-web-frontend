@@ -7,6 +7,7 @@ const HomePage: React.FC = () => {
     <>
       <ArticleLayout
           category={SiteNavKey.Home}
+          title={"Home Page Article"}
         passageTitles={[
           {
             header: "This is header 1",

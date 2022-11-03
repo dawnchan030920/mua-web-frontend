@@ -12,7 +12,7 @@ import {
 import ArticleTitlebar from "../Composite/ArticleTitlebar";
 import Navigation from "../Composite/Navigation";
 import Login from "../Composite/Login";
-import {SiteNavMap, SiteNavKey} from "../../data/SiteNavData";
+import {SiteNavKey} from "../../data/SiteNavData";
 
 type ArticleLayoutProps = PropsWithChildren<{
   passageTitles: {
@@ -21,6 +21,7 @@ type ArticleLayoutProps = PropsWithChildren<{
     id: string;
   }[];
   category: SiteNavKey;
+  title: string;
 }>;
 
 const StackContainer = styled.div`
@@ -181,9 +182,8 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = (props) => {
         </SiteTitlebarPosition>
         <ArticleTitleBarPosition>
           <ArticleTitlebar
-            categoryLink={SiteNavMap[props.category].to}
-            categoryIcon={SiteNavMap[props.category].icon}
-            title={SiteNavMap[props.category].tag}
+              category={props.category}
+            title={props.title}
             func={toggleTocOpen}
           />
         </ArticleTitleBarPosition>
