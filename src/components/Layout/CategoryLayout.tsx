@@ -23,6 +23,7 @@ const CategoryTitlebarPosition = styled.div`
 
 const MainContainer = styled.div`
   background-color: rgb(247, 247, 249);
+  height: 100%;
 `
 
 const NavigationPositionMobile = styled.div.attrs<{ isActive: boolean }>({})<{
