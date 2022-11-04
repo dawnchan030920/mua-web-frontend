@@ -26,6 +26,10 @@ const LeftContainer = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
+  
+  @media (min-width: 992px) {
+    justify-content: end;
+  }
 `;
 
 const CenterContainer = styled.div`
@@ -41,6 +45,10 @@ const RightContainer = styled.div`
   justify-content: end;
   align-items: center;
   gap: 0.25rem;
+  
+  @media (min-width: 992px) {
+    justify-content: start;
+  }
 `;
 
 const SitebarSearchboxPosition = styled.div`
