@@ -108,21 +108,25 @@ const IconNodeContainer = styled.div`
   position: relative;
 `
 
-type BannerDataType = [
-    {
-        pid: number;
-        img: string;
-    }
-]
+type BannerDataType = {
+    banner: [
+        {
+            pid: number;
+            img: string;
+        }
+    ]
+}
 
-type TimelineDataType = [
-    {
-        pid: number;
-        name: string;
-        description: string;
-        time: string;
-    }
-]
+type TimelineDataType = {
+    timeline: [
+        {
+            pid: number;
+            name: string;
+            description: string;
+            time: string;
+        }
+    ]
+}
 
 const HomePage: React.FC = () => {
     const NewsDisplayRef = useRef(null);
@@ -252,7 +256,7 @@ const HomePage: React.FC = () => {
                           )} style={{
                               borderRadius: `2rem`
                           }}>
-                              {(JSON.parse(bannerData) as BannerDataType).map((value, index, _array) => {
+                              {(bannerData as BannerDataType).banner.map((value, index, _array) => {
                                   console.log(typeof bannerData);
                                   return (
                                       <img src={value.img} alt={value.img} style={{
@@ -320,16 +324,16 @@ const HomePage: React.FC = () => {
                   }}>
                       {isTimelineLoading && <span>Timeline is still loading ...</span>}
                       {isTimelineError && <span>Something went wrong with the timeline ...</span>}
-                      {/*{(!isTimelineError && !isTimelineLoading) && (*/}
-                      {/*    <>*/}
-                      {/*        {(JSON.parse(timelineData) as TimelineDataType).map((value, index, _array) => {*/}
-                      {/*            return (*/}
-                      {/*                <>*/}
-                      {/*                </>*/}
-                      {/*            )*/}
-                      {/*        })}*/}
-                      {/*    </>*/}
-                      {/*)}*/}
+                      {(!isTimelineError && !isTimelineLoading) && (
+                          <>
+                              {(timelineData as TimelineDataType).timeline.map((value, index, _array) => {
+                                  return (
+                                      <>
+                                      </>
+                                  )
+                              })}
+                          </>
+                      )}
                   </AcrylicPanel>
               </div>
           </HomeLayout>
