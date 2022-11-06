@@ -252,14 +252,15 @@ const HomePage: React.FC = () => {
                           )} style={{
                               borderRadius: `2rem`
                           }}>
-                              {(bannerData as BannerDataType).map((value, index, _array) => {
-                                  return (
-                                      <img src={value.img} alt={value.img} style={{
-                                          objectFit: `cover`,
-                                          width: `100%`
-                                      }} />
-                                  )
-                              })}
+                              {/*{(bannerData as BannerDataType).map((value, index, _array) => {*/}
+                              {/*    return (*/}
+                              {/*        <img src={value.img} alt={value.img} style={{*/}
+                              {/*            objectFit: `cover`,*/}
+                              {/*            width: `100%`*/}
+                              {/*        }} />*/}
+                              {/*    )*/}
+                              {/*})}*/}
+                              <div>{JSON.stringify(bannerData)}</div>
                           </Carousel>
                       )}
                   </AcrylicPanel>
