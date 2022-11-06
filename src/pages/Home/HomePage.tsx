@@ -247,7 +247,7 @@ const HomePage: React.FC = () => {
                       {isBannerLoading && <span>Banner is still loading ...</span>}
                       {isBannerError && <span>Something went wrong with banner ...</span>}
                       <CarouselPosition>
-                          {(!isBannerLoading && !isBannerLoading) && (
+                          {(!isBannerLoading && !isBannerLoading && bannerData as BannerDataType != null) && (
                               <Carousel wrapAround={true} slidesToShow={1} pauseOnHover={true} autoplay={true} animation={`zoom`} renderCenterLeftControls={({previousSlide}) => (
                                   <div style={{
                                       backgroundColor: `white`,
@@ -337,7 +337,7 @@ const HomePage: React.FC = () => {
                   }}>
                       {isTimelineLoading && <span>Timeline is still loading ...</span>}
                       {isTimelineError && <span>Something went wrong with the timeline ...</span>}
-                      {(!isTimelineError && !isTimelineLoading) && (
+                      {(!isTimelineError && !isTimelineLoading && (timelineData as TimelineDataType != null)) && (
                           <>
                               {(timelineData as TimelineDataType).timeline.map((value, index, _array) => {
                                   return (
