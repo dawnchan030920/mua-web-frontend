@@ -14,6 +14,7 @@ import {SubtleButton} from "../../components/Basic/Button";
 import { ReactComponent as ChevronLeft24 } from "../../assets/icons/chevronLeft24.svg";
 import { ReactComponent as ChevronRight24 } from "../../assets/icons/chevronRight24.svg"
 import { ReactComponent as Timeline24 } from "../../assets/icons/timeline24.svg";
+import TimelineItem from "../../components/Basic/TimelineItem";
 
 const Tag = styled.div.attrs<{color: string}>({})<{color: string}>`
   height: 1.6rem;
@@ -341,8 +342,7 @@ const HomePage: React.FC = () => {
                           <>
                               {(timelineData as TimelineDataType).timeline.map((value, index, _array) => {
                                   return (
-                                      <>
-                                      </>
+                                      <TimelineItem pid={value.pid} name={value.name} description={value.description} time={value.time} />
                                   )
                               })}
                           </>
