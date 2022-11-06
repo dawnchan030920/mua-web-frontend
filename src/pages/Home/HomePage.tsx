@@ -118,7 +118,7 @@ type BannerDataType = [
 const HomePage: React.FC = () => {
     const NewsDisplayRef = useRef(null);
     const TimelineDisplayRef = useRef(null);
-    const [{data: bannerData, loading: isBannerLoading, error: isBannerError}] = useAxios("/api/banner/getBanner/1");
+    const [{data: bannerData, loading: isBannerLoading, error: isBannerError}] = useAxios("/api/banner/getBanner/IndexHeader");
     const [{data: timelineData, loading: isTimelineLoading, error: isTimelineError}] = useAxios("/api/timeline/getTimeline");
     const [, newsInViewportRatio] = useInViewport(NewsDisplayRef, {
         threshold: [0, 0.2, 0.4, 0.8, 1]
