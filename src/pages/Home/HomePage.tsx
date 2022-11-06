@@ -108,6 +108,13 @@ const IconNodeContainer = styled.div`
   position: relative;
 `
 
+const CarouselPosition = styled.div`
+  height: 100%;
+  & .slider-container {
+    height: 100%;
+  }
+`
+
 type BannerDataType = {
     banner: [
         {
@@ -235,38 +242,44 @@ const HomePage: React.FC = () => {
               }}>
                   <AcrylicPanel style={{
                       width: `94vw`,
-                      maxHeight: `50vw`,
-                      height: `auto`
+                      height: `60vw`
                   }}>
                       {isBannerLoading && <span>Banner is still loading ...</span>}
                       {isBannerError && <span>Something went wrong with banner ...</span>}
-                      {(!isBannerError && !isBannerLoading) && (
-                          <Carousel wrapAround={true} slidesToShow={1} pauseOnHover={true} autoplay={true} animation={`zoom`} renderCenterLeftControls={({previousSlide}) => (
-                              <div style={{
-                                  marginLeft: `0.5rem`
+                      <CarouselPosition>
+                          {(!isBannerLoading && !isBannerLoading) && (
+                              <Carousel wrapAround={true} slidesToShow={1} pauseOnHover={true} autoplay={true} animation={`zoom`} renderCenterLeftControls={({previousSlide}) => (
+                                  <div style={{
+                                      backgroundColor: `white`,
+                                      marginLeft: `0.5rem`,
+                                      borderRadius: `0.5rem`
+                                  }}>
+                                      <SubtleButton click={previousSlide} icon={<ChevronLeft24 />} />
+                                  </div>
+                              )} renderCenterRightControls={({nextSlide}) => (
+                                  <div style={{
+                                      backgroundColor: `white`,
+                                      marginRight: `0.5rem`,
+                                      borderRadius: `0.5rem`
+                                  }}>
+                                      <SubtleButton click={nextSlide} icon={<ChevronRight24 />} />
+                                  </div>
+                              )} style={{
+                                  borderRadius: `2rem`,
+                                  height: `100%`
                               }}>
-                                  <SubtleButton click={previousSlide} icon={<ChevronLeft24 />} />
-                              </div>
-                          )} renderCenterRightControls={({nextSlide}) => (
-                              <div style={{
-                                  marginRight: `0.5rem`
-                              }}>
-                                  <SubtleButton click={nextSlide} icon={<ChevronRight24 />} />
-                              </div>
-                          )} style={{
-                              borderRadius: `2rem`
-                          }}>
-                              {(bannerData as BannerDataType).banner.map((value, index, _array) => {
-                                  console.log(typeof bannerData);
-                                  return (
-                                      <img src={value.img} alt={value.img} style={{
-                                          objectFit: `cover`,
-                                          width: `100%`
-                                      }} />
-                                  )
-                              })}
-                          </Carousel>
-                      )}
+                                  {(bannerData as BannerDataType).banner.map((value, index, _array) => {
+                                      console.log(typeof bannerData);
+                                      return (
+                                          <img src={value.img} alt={value.img} style={{
+                                              objectFit: `cover`,
+                                              width: `100%`
+                                          }} />
+                                      )
+                                  })}
+                              </Carousel>
+                          )}
+                      </CarouselPosition>
                   </AcrylicPanel>
               </div>
               <div style={{
