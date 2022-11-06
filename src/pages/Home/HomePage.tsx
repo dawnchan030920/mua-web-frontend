@@ -339,13 +339,17 @@ const HomePage: React.FC = () => {
                       {isTimelineLoading && <span>Timeline is still loading ...</span>}
                       {isTimelineError && <span>Something went wrong with the timeline ...</span>}
                       {(!isTimelineError && !isTimelineLoading && (timelineData as TimelineDataType != null)) && (
-                          <>
+                          <div style={{
+                              display: `flex`,
+                              flexDirection: `column`,
+                              gap: `1rem`
+                          }}>
                               {(timelineData as TimelineDataType).timeline.map((value, index, _array) => {
                                   return (
                                       <TimelineItem pid={value.pid} name={value.name} description={value.description} time={value.time} />
                                   )
                               })}
-                          </>
+                          </div>
                       )}
                   </AcrylicPanel>
               </div>
