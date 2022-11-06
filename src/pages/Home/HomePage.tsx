@@ -110,8 +110,17 @@ const IconNodeContainer = styled.div`
 
 type BannerDataType = [
     {
-        pid: string;
+        pid: number;
         img: string;
+    }
+]
+
+type TimelineDataType = [
+    {
+        pid: number;
+        name: string;
+        description: string;
+        time: string;
     }
 ]
 
@@ -309,7 +318,18 @@ const HomePage: React.FC = () => {
                       width: `94vw`
                   }}>
                       {isTimelineLoading && <span>Timeline is still loading ...</span>}
-                      {isTimelineError && <span>Something went wrong the timeline ...</span>}
+                      {isTimelineError && <span>Something went wrong with the timeline ...</span>}
+                      {(!isTimelineError && !isTimelineLoading) && (
+                          <>
+                              {(timelineData as TimelineDataType).map((value, index, _array) => {
+                                  return (
+                                      <>
+
+                                      </>
+                                  )
+                              })}
+                          </>
+                      )}
                   </AcrylicPanel>
               </div>
           </HomeLayout>
