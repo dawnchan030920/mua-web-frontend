@@ -13,6 +13,7 @@ import ArticleTitlebar from "../Composite/ArticleTitlebar";
 import Navigation from "../Composite/Navigation";
 import Login from "../Composite/Login";
 import {SiteNavKey} from "../../data/SiteNavData";
+import {Helmet} from "react-helmet";
 
 type ArticleLayoutProps = PropsWithChildren<{
   passageTitles: {
@@ -133,6 +134,11 @@ const NavigationPosition: React.FC<PropsWithChildren<{ isActive: boolean }>> = (
 ) => {
   return (
     <>
+      <Helmet>
+        <title>
+          Title | {}
+        </title>
+      </Helmet>
       <Mobile>
         <NavigationPositionMobile isActive={props.isActive}>
           {props.children}

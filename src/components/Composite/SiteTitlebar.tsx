@@ -7,6 +7,7 @@ import { ReactComponent as Person24 } from "../../assets/icons/person24.svg";
 import { MobileOrTablet, Desktop } from "../MediaQuery/MediaQueryWrapper";
 import Navigation from "../Composite/Navigation";
 import {SearchBox} from "../Basic/ControllableInput";
+import {Link} from "react-router-dom";
 
 type SiteTitlebarProps = {
   onNavClick?: () => void;
@@ -65,7 +66,9 @@ const SiteTitlebar: React.FC<SiteTitlebarProps> = (props) => {
           </div>
         </LeftContainer>
         <CenterContainer>
-          <Logo />
+          <Link to={"/"}>
+            <Logo />
+          </Link>
         </CenterContainer>
         <RightContainer>
           <div id="manage-button">
@@ -76,7 +79,9 @@ const SiteTitlebar: React.FC<SiteTitlebarProps> = (props) => {
 
       <Desktop>
         <LeftContainer>
-          <Logo />
+          <Link to={"/"}>
+            <Logo />
+          </Link>
         </LeftContainer>
         <CenterContainer>
           <Navigation />

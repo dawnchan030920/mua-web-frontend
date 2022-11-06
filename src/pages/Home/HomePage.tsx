@@ -1,102 +1,257 @@
-import React from "react";
-import ArticleLayout from "../../components/Layout/ArticleLayout";
-import {SiteNavKey} from "../../data/SiteNavData";
+import React, {useRef} from "react";
+import styled from "styled-components";
+import HomeLayout from "../../components/Layout/HomeLayout";
+import logoLargeUrl from "../../assets/img/logoLarge.svg";
+import {Helmet} from "react-helmet";
+import IconNode from "../../components/Basic/IconNode";
+import {ReactComponent as Organization24} from "../../assets/icons/organization24.svg";
+import {ReactComponent as News24} from "../../assets/icons/news24.svg";
+import useAxios from "axios-hooks";
+import {useInViewport} from "ahooks";
+import {HeightTransition, HorizontalMoveTransition, OpacityTransition} from "../../components/Basic/Transition";
+import Carousel from "nuka-carousel";
+import {SubtleButton} from "../../components/Basic/Button";
+import { ReactComponent as ChevronLeft24 } from "../../assets/icons/chevronLeft24.svg";
+import { ReactComponent as ChevronRight24 } from "../../assets/icons/chevronRight24.svg"
+
+const Tag = styled.div.attrs<{color: string}>({})<{color: string}>`
+  height: 1.6rem;
+  width: fit-content;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.8rem;
+  border: 1.5px solid ${props => props.color};
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  color: ${props => props.color};
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.2rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 0 4px ${props => props.color};
+`
+
+const AcrylicPanel = styled.div`
+  border: solid transparent;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  backdrop-filter: blur(20px) saturate(80%) brightness(90%);
+  background-color: rgba(255, 255, 255, 0.72);
+  padding: 1.5rem 2rem;
+  width: fit-content;
+`
+
+const GradientTextContainer = styled.div.attrs<{from: string; to: string}>({})<{from: string; to: string}>`
+  background-image: linear-gradient(to right bottom, ${props => props.from}, ${props => props.to});
+  color: transparent;
+  -webkit-background-clip: text;
+`
+
+const DirectingLine = styled.div.attrs<{gradient:string, height: string, upToBottom: boolean}>({})<{gradient: string, height: string, upToBottom: boolean}>`
+  width: 4px;
+  height: ${props => props.height};
+  background-image: linear-gradient(${props => props.gradient});
+  ${props => props.upToBottom ? "border-top-left-radius: 2px; border-top-right-radius: 2px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;" : "border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-left-radius: 2px; border-bottom-right-radius: 2px;"}
+`
+
+const LineContentLayout = styled.div`
+  display: grid;
+  grid-template-columns: 10% 1fr;
+  width: 100%;
+  height: 100%;
+`
+
+const LineTagContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+  grid-column: 1;
+  height: 100%;
+`
+
+const ContentContainer = styled.div`
+  grid-column: 2;
+  width: 100%;
+  height: 100%;
+  padding-right: 5%;
+`
+
+const IntroductionContentContainer = styled(ContentContainer)`
+  background-image: url(${logoLargeUrl});
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  @media (max-width: 767px) {
+    background-position: bottom;
+  }
+`
+
+const NewsContentContainer = styled(ContentContainer)`
+  padding-top: calc(200px - 12px);
+  padding-bottom: 3rem;
+`
+
+const IconNodeContainer = styled.div`
+  width: 24px;
+  height: 24px;
+  position: relative;
+`
+
+type BannerDataType = [
+    {
+        pid: string;
+        img: string;
+    }
+]
 
 const HomePage: React.FC = () => {
+    const NewsDisplayStarterRef = useRef(null);
+    const NewsDisplayEnderRef = useRef(null);
+    const [{data: bannerData, loading: isBannerLoading, error: isBannerError}] = useAxios("/api//banner/getBanner/1");
+    const [newsStarterInViewport] = useInViewport(NewsDisplayStarterRef, {
+        threshold: [0.8]
+    });
+    const [newsEnderInViewport] = useInViewport(NewsDisplayEnderRef, {
+        threshold: [0.95]
+    });
+
   return (
-    <>
-      <ArticleLayout
-          category={SiteNavKey.Home}
-          title={"Home Page Article"}
-        passageTitles={[
-          {
-            header: "This is header 1",
-            level: 2,
-            id: "header1",
-          },
-          {
-            header: "This is header 2",
-            level: 2,
-            id: "header2",
-          },
-          {
-            header:
-              "This is some long title I don't how he came up with such a bad idea...",
-            level: 2,
-            id: "long",
-          },
-        ]}
-      >
-        <h2 id="header1">This is header1</h2>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <h2 id="header2">This is header2</h2>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <h2 id="long">
-          This is some long title I don't how he came up with such a bad idea...
-        </h2>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-        <p>This time, do I win?</p>
-      </ArticleLayout>
-    </>
-  );
+      <>
+          <Helmet>
+              <title>MUA | 中国高校 MC 联盟</title>
+          </Helmet>
+          <HomeLayout>
+              <div style={{
+                  height: `100vh`,
+                  width: `100%`
+              }}>
+                  <LineContentLayout>
+                      <LineTagContainer>
+                          <DirectingLine height={`calc(50% - 25px)`} gradient={`transparent, transparent`} upToBottom={true} />
+                          <IconNodeContainer>
+                              <IconNode icon={<Organization24 />} color={`rgb(85, 107, 185)`} />
+                          </IconNodeContainer>
+                          <DirectingLine height={`calc(50% - 25px)`} gradient={`rgb(85, 107, 185), rgb(133, 110, 166)`} upToBottom={true} />
+                      </LineTagContainer>
+                      <IntroductionContentContainer>
+                          <AcrylicPanel>
+                              <Tag color={`rgb(85, 107, 185)`}>组织</Tag>
+                              <GradientTextContainer to={`rgb(147, 231, 102)`} from={`rgb(85, 107, 185)`}>
+                                  <div style={{
+                                      fontSize: `2rem`,
+                                      fontWeight: `600`
+                                  }}>
+                                      联络 · 联合 · 联盟
+                                  </div>
+                                  <div style={{
+                                      fontSize: `4rem`,
+                                      fontWeight: `800`
+                                  }}>
+                                      中国高校 Minecraft 联盟
+                                  </div>
+                                  <div style={{
+                                      fontSize: `1.5rem`,
+                                      fontWeight: `500`
+                                  }}>
+                                      Minecraft University Alliance
+                                  </div>
+                              </GradientTextContainer>
+                          </AcrylicPanel>
+                      </IntroductionContentContainer>
+                  </LineContentLayout>
+              </div>
+              <div style={{
+                  width: `100%`,
+                  height: `auto`
+              }}>
+                  <LineContentLayout>
+                      <LineTagContainer>
+                          <DirectingLine height={`200px`} gradient={`rgb(133, 110, 166), #ec2F4B`} upToBottom={false} />
+                          <OpacityTransition duration={`0.5s`} isActive={newsStarterInViewport || newsEnderInViewport}>
+                              <IconNodeContainer>
+                                  <IconNode icon={<News24 />} color={`#ec2F4B`} />
+                              </IconNodeContainer>
+                          </OpacityTransition>
+                          <div style={{
+                              flexGrow: `1`
+                          }}>
+                              <HeightTransition duration={`0.6s`} isActive={newsStarterInViewport || newsEnderInViewport} delay={`0.1s`} style={{
+                                  height: `100%`
+                              }}>
+                                  <DirectingLine height={`auto`} gradient={`#ec2F4B, #ec2F4B, white`} upToBottom={true} ref={NewsDisplayStarterRef} style={{
+                                      height: `100%`
+                                  }} />
+                              </HeightTransition>
+                          </div>
+                      </LineTagContainer>
+                      <NewsContentContainer>
+                          <HorizontalMoveTransition duration={`0.6s`} isActive={newsStarterInViewport || newsEnderInViewport} delay={`0.15s`}>
+                              <AcrylicPanel>
+                                  <Tag color={`#ec2F4B`}>新闻</Tag>
+                                  <div style={{
+                                      fontSize: `2rem`,
+                                      fontWeight: `600`
+                                  }}>
+                                      最近都在做些什么？
+                                      <div style={{
+                                          color: `#ec2F4B`
+                                      }}>
+                                          MUA 会开展活动、项目，成员也会进行各自的实践。
+                                      </div>
+                                  </div>
+                              </AcrylicPanel>
+                          </HorizontalMoveTransition>
+                      </NewsContentContainer>
+                  </LineContentLayout>
+              </div>
+              <div style={{
+                  display: `flex`,
+                  justifyContent: `center`
+              }} ref={NewsDisplayEnderRef}>
+                  <AcrylicPanel style={{
+                      width: `94vw`,
+                      maxHeight: `50vw`,
+                      height: `auto`
+                  }}>
+                      {isBannerLoading && <span>Banner is still loading ...</span>}
+                      {isBannerError && <span>Something went wrong with banner ...</span>}
+                      {(!isBannerError && !isBannerLoading) && (
+                          <Carousel wrapAround={true} slidesToShow={1} pauseOnHover={true} autoplay={true} animation={`zoom`} renderCenterLeftControls={({previousSlide}) => (
+                              <div style={{
+                                  marginLeft: `0.5rem`
+                              }}>
+                                  <SubtleButton click={previousSlide} icon={<ChevronLeft24 />} />
+                              </div>
+                          )} renderCenterRightControls={({nextSlide}) => (
+                              <div style={{
+                                  marginRight: `0.5rem`
+                              }}>
+                                  <SubtleButton click={nextSlide} icon={<ChevronRight24 />} />
+                              </div>
+                          )} style={{
+                              borderRadius: `2rem`
+                          }}>
+                              {(bannerData as BannerDataType).map((value, index, _array) => {
+                                  return (
+                                      <img src={value.img} alt={value.img} style={{
+                                          objectFit: `cover`,
+                                          width: `100%`
+                                      }} />
+                                  )
+                              })}
+                          </Carousel>
+                      )}
+                  </AcrylicPanel>
+              </div>
+
+          </HomeLayout>
+      </>
+  )
 };
 
 export default HomePage;
