@@ -13,6 +13,7 @@ import Carousel from "nuka-carousel";
 import {SubtleButton} from "../../components/Basic/Button";
 import { ReactComponent as ChevronLeft24 } from "../../assets/icons/chevronLeft24.svg";
 import { ReactComponent as ChevronRight24 } from "../../assets/icons/chevronRight24.svg"
+import { ReactComponent as Timeline24 } from "../../assets/icons/timeline24.svg";
 
 const Tag = styled.div.attrs<{color: string}>({})<{color: string}>`
   height: 1.6rem;
@@ -96,6 +97,11 @@ const NewsContentContainer = styled(ContentContainer)`
   padding-bottom: 3rem;
 `
 
+const TimelineContentContainer = styled(ContentContainer)`
+  padding-top: calc(200px - 12px);
+  padding-bottom: 3rem;
+`
+
 const IconNodeContainer = styled.div`
   width: 24px;
   height: 24px;
@@ -110,14 +116,15 @@ type BannerDataType = [
 ]
 
 const HomePage: React.FC = () => {
-    const NewsDisplayStarterRef = useRef(null);
-    const NewsDisplayEnderRef = useRef(null);
-    const [{data: bannerData, loading: isBannerLoading, error: isBannerError}] = useAxios("/api//banner/getBanner/1");
-    const [newsStarterInViewport] = useInViewport(NewsDisplayStarterRef, {
-        threshold: [0.8]
+    const NewsDisplayRef = useRef(null);
+    const TimelineDisplayRef = useRef(null);
+    const [{data: bannerData, loading: isBannerLoading, error: isBannerError}] = useAxios("/api/banner/getBanner/1");
+    const [{data: timelineData, loading: isTimelineLoading, error: isTimelineError}] = useAxios("/api/timeline/getTimeline");
+    const [, newsInViewportRatio] = useInViewport(NewsDisplayRef, {
+        threshold: [0, 0.2, 0.4, 0.8, 1]
     });
-    const [newsEnderInViewport] = useInViewport(NewsDisplayEnderRef, {
-        threshold: [0.95]
+    const [, timelineInViewportRatio] = useInViewport(TimelineDisplayRef, {
+        threshold: [0, 0.2, 0.4, 0.8, 1]
     });
 
   return (
@@ -169,10 +176,10 @@ const HomePage: React.FC = () => {
                   width: `100%`,
                   height: `auto`
               }}>
-                  <LineContentLayout>
+                  <LineContentLayout ref={NewsDisplayRef}>
                       <LineTagContainer>
                           <DirectingLine height={`200px`} gradient={`rgb(133, 110, 166), #ec2F4B`} upToBottom={false} />
-                          <OpacityTransition duration={`0.5s`} isActive={newsStarterInViewport || newsEnderInViewport}>
+                          <OpacityTransition duration={`0.5s`} isActive={(newsInViewportRatio as number) > 0.8}>
                               <IconNodeContainer>
                                   <IconNode icon={<News24 />} color={`#ec2F4B`} />
                               </IconNodeContainer>
@@ -180,17 +187,17 @@ const HomePage: React.FC = () => {
                           <div style={{
                               flexGrow: `1`
                           }}>
-                              <HeightTransition duration={`0.6s`} isActive={newsStarterInViewport || newsEnderInViewport} delay={`0.1s`} style={{
+                              <HeightTransition duration={`0.6s`} isActive={(newsInViewportRatio as number) > 0.8} delay={`0.1s`} style={{
                                   height: `100%`
                               }}>
-                                  <DirectingLine height={`auto`} gradient={`#ec2F4B, #ec2F4B, white`} upToBottom={true} ref={NewsDisplayStarterRef} style={{
+                                  <DirectingLine height={`auto`} gradient={`#ec2F4B, #ec2F4B, white`} upToBottom={true} style={{
                                       height: `100%`
                                   }} />
                               </HeightTransition>
                           </div>
                       </LineTagContainer>
                       <NewsContentContainer>
-                          <HorizontalMoveTransition duration={`0.6s`} isActive={newsStarterInViewport || newsEnderInViewport} delay={`0.15s`}>
+                          <HorizontalMoveTransition duration={`0.6s`} isActive={(newsInViewportRatio as number) > 0.8} delay={`0.15s`}>
                               <AcrylicPanel>
                                   <Tag color={`#ec2F4B`}>新闻</Tag>
                                   <div style={{
@@ -212,7 +219,7 @@ const HomePage: React.FC = () => {
               <div style={{
                   display: `flex`,
                   justifyContent: `center`
-              }} ref={NewsDisplayEnderRef}>
+              }}>
                   <AcrylicPanel style={{
                       width: `94vw`,
                       maxHeight: `50vw`,
@@ -248,7 +255,63 @@ const HomePage: React.FC = () => {
                       )}
                   </AcrylicPanel>
               </div>
-
+              <div style={{
+                  width: `100%`,
+                  height: `auto`
+              }}>
+                  <LineContentLayout ref={TimelineDisplayRef}>
+                      <LineTagContainer>
+                          <HeightTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.2}>
+                              <DirectingLine height={`200px`} gradient={`transparent, #2E8B57`} upToBottom={false} />
+                          </HeightTransition>
+                          <OpacityTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.8}>
+                              <IconNodeContainer>
+                                  <IconNode icon={<Timeline24 />} color={`#2E8B57`} />
+                              </IconNodeContainer>
+                          </OpacityTransition>
+                          <div style={{
+                              flexGrow: `1`
+                          }}>
+                              <HeightTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.8} delay={`0.1s`} style={{
+                                  height: `100%`
+                              }}>
+                                  <DirectingLine height={`auto`} gradient={`#2E8B57, #2E8B57, transparent`} upToBottom={true} style={{
+                                      height: `100%`
+                                  }} />
+                              </HeightTransition>
+                          </div>
+                      </LineTagContainer>
+                      <TimelineContentContainer>
+                          <HorizontalMoveTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.8} delay={`0.15s`}>
+                              <AcrylicPanel>
+                                  <Tag color={`#2E8B57`}>时光机</Tag>
+                                  <div style={{
+                                      fontSize: `2rem`,
+                                      fontWeight: `600`
+                                  }}>
+                                      自从 2020 年 11 月 成立以来，
+                                      <div style={{
+                                          color: `#2E8B57`
+                                      }}>
+                                          两年的时间里，随着各大高校的加入，MUA 逐渐羽翼丰满。
+                                      </div>
+                                  </div>
+                              </AcrylicPanel>
+                          </HorizontalMoveTransition>
+                      </TimelineContentContainer>
+                  </LineContentLayout>
+              </div>
+              <div style={{
+                  display: `flex`,
+                  justifyContent: `center`
+              }}>
+                  <AcrylicPanel style={{
+                      width: `94vw`
+                  }}>
+                      {isTimelineLoading && <span>Timeline is still loading ...</span>}
+                      {isTimelineError && <span>Something went wrong the timeline ...</span>}
+                  </AcrylicPanel>
+              </div>
           </HomeLayout>
       </>
   )
