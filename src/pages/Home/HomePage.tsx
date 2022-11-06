@@ -253,6 +253,7 @@ const HomePage: React.FC = () => {
                               borderRadius: `2rem`
                           }}>
                               {(JSON.parse(bannerData) as BannerDataType).map((value, index, _array) => {
+                                  console.log(typeof bannerData);
                                   return (
                                       <img src={value.img} alt={value.img} style={{
                                           objectFit: `cover`,
@@ -319,17 +320,16 @@ const HomePage: React.FC = () => {
                   }}>
                       {isTimelineLoading && <span>Timeline is still loading ...</span>}
                       {isTimelineError && <span>Something went wrong with the timeline ...</span>}
-                      {(!isTimelineError && !isTimelineLoading) && (
-                          <>
-                              {(JSON.parse(timelineData) as TimelineDataType).map((value, index, _array) => {
-                                  return (
-                                      <>
-
-                                      </>
-                                  )
-                              })}
-                          </>
-                      )}
+                      {/*{(!isTimelineError && !isTimelineLoading) && (*/}
+                      {/*    <>*/}
+                      {/*        {(JSON.parse(timelineData) as TimelineDataType).map((value, index, _array) => {*/}
+                      {/*            return (*/}
+                      {/*                <>*/}
+                      {/*                </>*/}
+                      {/*            )*/}
+                      {/*        })}*/}
+                      {/*    </>*/}
+                      {/*)}*/}
                   </AcrylicPanel>
               </div>
           </HomeLayout>
