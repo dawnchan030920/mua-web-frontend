@@ -15,6 +15,8 @@ import {ReactComponent as ChevronLeft24} from "../../assets/icons/chevronLeft24.
 import {ReactComponent as ChevronRight24} from "../../assets/icons/chevronRight24.svg"
 import {ReactComponent as Timeline24} from "../../assets/icons/timeline24.svg";
 import TimelineItem from "../../components/Basic/TimelineItem";
+import {SiteNavData} from "../../data/SiteNavData";
+import {Link} from "react-router-dom";
 
 const Tag = styled.div.attrs<{ color: string }>({})<{ color: string }>`
   height: 1.6rem;
@@ -368,6 +370,57 @@ const HomePage: React.FC = () => {
             )}
           </AcrylicPanel>
         </div>
+        <footer style={{
+          margin: `3rem 0`,
+          padding: `1rem 0rem`,
+          display: `flex`,
+          flexDirection: `column`,
+          backgroundColor: `rgb(240, 240, 240)`,
+          color: `rgb(105, 105, 105)`
+        }}>
+          <div id={"sitemap"} style={{display: `flex`, flexWrap: `wrap`, padding: `0 1.5rem`}}>
+            {SiteNavData.map((value, index, _array) => {
+              return (
+                <div key={index}>
+                  <div style={{
+                    fontSize: `1.1rem`,
+                    margin: `0.4rem 0`,
+                    color: `black`
+                  }}>
+                    {value.title}
+                  </div>
+                  <div style={{
+                    display: `flex`,
+                    flexDirection: `column`,
+                    gap: `0.05rem`
+                  }}>
+                    {value.items.map((value, index, _array) => {
+                      return (
+                        <div key={index} style={{
+                          fontSize: `1rem`
+                        }}>
+                          <Link to={value.to} style={{
+                            textDecoration: `none`,
+                            color: `rgb(125, 125, 125)`
+                          }}>{value.tag}</Link>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+          <div style={{
+            display: `flex`,
+            justifyContent: `center`,
+            fontSize: `0.95rem`,
+            marginTop: `1rem`,
+            color: `black`
+          }}>
+            Powered by Vite & React. All rights reserved. Copyright ©MUAlliance.
+          </div>
+        </footer>
       </HomeLayout>
     </>
   )
