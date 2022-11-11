@@ -285,7 +285,6 @@ const HomePage: React.FC = () => {
                   height: `100%`
                 }}>
                   {(bannerData as BannerDataType).banner.map((value, index, _array) => {
-                    console.log(typeof bannerData);
                     return (
                       <img src={value.img} alt={value.img} style={{
                         objectFit: `cover`,
@@ -358,12 +357,11 @@ const HomePage: React.FC = () => {
             {(!isTimelineError && !isTimelineLoading && (timelineData as TimelineDataType != null)) && (
               <div style={{
                 display: `flex`,
-                flexDirection: `column`,
-                gap: `1rem`
+                flexDirection: `column`
               }}>
                 {(timelineData as TimelineDataType).timeline.map((value, index, _array) => {
                   return (
-                    <TimelineItem pid={value.pid} name={value.name} description={value.description} time={value.time}/>
+                    <TimelineItem pid={value.pid} name={value.name} description={value.description} time={value.time} key={index}/>
                   )
                 })}
               </div>
