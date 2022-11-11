@@ -160,7 +160,7 @@ const Navigation: React.FC<NavigationProps> = () => {
                 <NavigationListVerticle>
                   {value.items.map((value, index, _array) => {
                     return (
-                      <NavlinkButton to={value.to} end={value.end} text={value.tag} icon={value.icon} />
+                      <NavlinkButton to={value.to} end={value.end} text={value.tag} icon={value.icon} key={index} />
                     );
                   })}
                 </NavigationListVerticle>
@@ -178,7 +178,7 @@ const Navigation: React.FC<NavigationProps> = () => {
               <NavigationListHorizontal>
                 {value.items.map((value, index, _array) => {
                   return (
-                      <NavlinkButton to={value.to} end={value.end} text={value.tag} icon={value.icon} />
+                      <NavlinkButton to={value.to} end={value.end} text={value.tag} icon={value.icon} key={index} />
                   )
                 })}
               </NavigationListHorizontal>
