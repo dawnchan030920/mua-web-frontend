@@ -209,10 +209,10 @@ const HomePage: React.FC = () => {
           width: `100%`,
           height: `auto`
         }}>
-          <LineContentLayout ref={NewsDisplayRef}>
+          <LineContentLayout>
             <LineTagContainer>
               <DirectingLine height={`200px`} gradient={`rgb(133, 110, 166), #ec2F4B`} upToBottom={false}/>
-              <OpacityTransition duration={`0.5s`} isActive={(newsInViewportRatio as number) > 0.8}>
+              <OpacityTransition duration={`0.5s`} isActive={(newsInViewportRatio as number) > 0.5}>
                 <IconNodeContainer>
                   <IconNode icon={<News24/>} color={`#ec2F4B`}/>
                 </IconNodeContainer>
@@ -220,7 +220,7 @@ const HomePage: React.FC = () => {
               <div style={{
                 flexGrow: `1`
               }}>
-                <HeightTransition duration={`0.6s`} isActive={(newsInViewportRatio as number) > 0.8} delay={`0.1s`}
+                <HeightTransition duration={`0.6s`} isActive={(newsInViewportRatio as number) > 0.5} delay={`0.1s`}
                                   style={{
                                     height: `100%`
                                   }}>
@@ -231,9 +231,9 @@ const HomePage: React.FC = () => {
               </div>
             </LineTagContainer>
             <NewsContentContainer>
-              <HorizontalMoveTransition duration={`0.6s`} isActive={(newsInViewportRatio as number) > 0.8}
+              <HorizontalMoveTransition duration={`0.6s`} isActive={(newsInViewportRatio as number) > 0.5}
                                         delay={`0.15s`}>
-                <AcrylicPanel>
+                <AcrylicPanel  ref={NewsDisplayRef}>
                   <Tag color={`#ec2F4B`}>新闻</Tag>
                   <div style={{
                     fontSize: `2rem`,
@@ -301,12 +301,12 @@ const HomePage: React.FC = () => {
           width: `100%`,
           height: `auto`
         }}>
-          <LineContentLayout ref={TimelineDisplayRef}>
+          <LineContentLayout>
             <LineTagContainer>
               <HeightTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.2}>
                 <DirectingLine height={`200px`} gradient={`transparent, #2E8B57`} upToBottom={false}/>
               </HeightTransition>
-              <OpacityTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.8}>
+              <OpacityTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.5}>
                 <IconNodeContainer>
                   <IconNode icon={<Timeline24/>} color={`#2E8B57`}/>
                 </IconNodeContainer>
@@ -314,7 +314,7 @@ const HomePage: React.FC = () => {
               <div style={{
                 flexGrow: `1`
               }}>
-                <HeightTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.8} delay={`0.1s`}
+                <HeightTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.5} delay={`0.1s`}
                                   style={{
                                     height: `100%`
                                   }}>
@@ -325,9 +325,9 @@ const HomePage: React.FC = () => {
               </div>
             </LineTagContainer>
             <TimelineContentContainer>
-              <HorizontalMoveTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.8}
+              <HorizontalMoveTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.5}
                                         delay={`0.15s`}>
-                <AcrylicPanel>
+                <AcrylicPanel  ref={TimelineDisplayRef}>
                   <Tag color={`#2E8B57`}>时光机</Tag>
                   <div style={{
                     fontSize: `2rem`,
