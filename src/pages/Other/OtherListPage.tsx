@@ -1,12 +1,9 @@
 import React from "react";
-import CategoryLayout from "../../components/Layout/CategoryLayout";
 import {SiteNavKey} from "../../data/SiteNavData";
+import ArticleListHOC from "../../components/Composite/ArticleListHOC";
 
-const OtherListPage: React.FC<{}> = () => {
-    return (
-        <CategoryLayout category={SiteNavKey.Other} list={[
-        ]}></CategoryLayout>
-    )
+const OtherListPage: React.FC = () => {
+    return <ArticleListHOC category={SiteNavKey.Other} categoryNumber={5} />
 }
 
 export default OtherListPage;

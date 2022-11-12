@@ -1,12 +1,9 @@
 import React from "react";
-import CategoryLayout from "../../components/Layout/CategoryLayout";
 import {SiteNavKey} from "../../data/SiteNavData";
+import ArticleListHOC from "../../components/Composite/ArticleListHOC";
 
-const RecurrenceListPage: React.FC<{}> = () => {
-    return (
-        <CategoryLayout category={SiteNavKey.Recurrence} list={[
-        ]}></CategoryLayout>
-    )
+const RecurrenceListPage: React.FC = () => {
+    return <ArticleListHOC category={SiteNavKey.Recurrence} categoryNumber={3} />
 }
 
 export default RecurrenceListPage;

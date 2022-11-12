@@ -1,12 +1,9 @@
 import React from "react";
-import CategoryLayout from "../../components/Layout/CategoryLayout";
 import {SiteNavKey} from "../../data/SiteNavData";
+import ArticleListHOC from "../../components/Composite/ArticleListHOC";
 
-const ProjectListPage: React.FC<{}> = () => {
-    return (
-        <CategoryLayout category={SiteNavKey.Project} list={[
-        ]}></CategoryLayout>
-    )
+const ProjectListPage: React.FC = () => {
+  return <ArticleListHOC category={SiteNavKey.Project} categoryNumber={2} />
 }
 
 export default ProjectListPage;

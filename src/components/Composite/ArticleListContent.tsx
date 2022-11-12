@@ -16,6 +16,17 @@ type ArticleListContentProps = {
   categoryName: SiteNavKey;
 }
 
+type ArticleList = {
+  passage: [
+    {
+      pid: number;
+      name: string;
+      time: string;
+      author: string;
+    }
+  ]
+}
+
 const CardContent = styled.div`
   padding: 1rem 1rem;
 
@@ -66,7 +77,7 @@ const ArticleListContent: React.FC<ArticleListContentProps> = (props) => {
                 color: `rgb(120, 120, 120)`
               }} id={"sub"}>
                 <IconText><Pen20/><span>{value.author}</span></IconText>
-                <IconText><Calendar20 /><span>{value.time}</span></IconText>
+                <IconText><Calendar20/><span>{value.time}</span></IconText>
               </div>
             </CardContent>
           </Card>
@@ -77,3 +88,4 @@ const ArticleListContent: React.FC<ArticleListContentProps> = (props) => {
 }
 
 export default ArticleListContent;
+export {type ArticleList};

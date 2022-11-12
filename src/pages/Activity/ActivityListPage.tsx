@@ -1,13 +1,9 @@
 import React from "react";
-import CategoryLayout from "../../components/Layout/CategoryLayout";
 import {SiteNavKey} from "../../data/SiteNavData";
+import ArticleListHOC from "../../components/Composite/ArticleListHOC";
 
-const ActivityListPage: React.FC<{}> = () => {
-    return (
-        <CategoryLayout category={SiteNavKey.Activity} list={[
-        ]}>
-        </CategoryLayout>
-    )
+const ActivityListPage: React.FC = () => {
+    return <ArticleListHOC category={SiteNavKey.Activity} categoryNumber={4} />
 }
 
 export default ActivityListPage;
