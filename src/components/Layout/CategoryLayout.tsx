@@ -19,11 +19,10 @@ type CategoryLayoutProps = PropsWithChildren<{
 const CategoryTitlebarPosition = styled.div`
   position: sticky;
   top: 0;
+  z-index: 500;
 `
 
 const MainContainer = styled.div`
-  background-color: rgb(247, 247, 249);
-  height: 100%;
 `
 
 const NavigationPositionMobile = styled.div.attrs<{ isActive: boolean }>({})<{

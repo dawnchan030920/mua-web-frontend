@@ -233,7 +233,7 @@ const HomePage: React.FC = () => {
             <NewsContentContainer>
               <HorizontalMoveTransition duration={`0.6s`} isActive={(newsInViewportRatio as number) > 0.5}
                                         delay={`0.15s`}>
-                <AcrylicPanel  ref={NewsDisplayRef}>
+                <AcrylicPanel ref={NewsDisplayRef}>
                   <Tag color={`#ec2F4B`}>新闻</Tag>
                   <div style={{
                     fontSize: `2rem`,
@@ -257,7 +257,8 @@ const HomePage: React.FC = () => {
         }}>
           <AcrylicPanel style={{
             width: `94vw`,
-            height: `60vw`
+            height: `60vw`,
+            maxHeight: `75vh`
           }}>
             {isBannerLoading && <span>Banner is still loading ...</span>}
             {isBannerError && <span>Something went wrong with banner ...</span>}
@@ -327,7 +328,7 @@ const HomePage: React.FC = () => {
             <TimelineContentContainer>
               <HorizontalMoveTransition duration={`0.6s`} isActive={timelineInViewportRatio as number > 0.5}
                                         delay={`0.15s`}>
-                <AcrylicPanel  ref={TimelineDisplayRef}>
+                <AcrylicPanel ref={TimelineDisplayRef}>
                   <Tag color={`#2E8B57`}>时光机</Tag>
                   <div style={{
                     fontSize: `2rem`,
@@ -361,7 +362,8 @@ const HomePage: React.FC = () => {
               }}>
                 {(timelineData as TimelineDataType).timeline.map((value, index, _array) => {
                   return (
-                    <TimelineItem pid={value.pid} name={value.name} description={value.description} time={value.time} key={index}/>
+                    <TimelineItem pid={value.pid} name={value.name} description={value.description} time={value.time}
+                                  key={index}/>
                   )
                 })}
               </div>
@@ -376,7 +378,8 @@ const HomePage: React.FC = () => {
           backgroundColor: `rgb(240, 240, 240)`,
           color: `rgb(105, 105, 105)`
         }}>
-          <div id={"sitemap"} style={{display: `flex`, flexWrap: `wrap`, padding: `0 1.5rem`}}>
+          <div id={"sitemap"}
+               style={{display: `flex`, flexWrap: `wrap`, padding: `0 1.5rem`, justifyContent: `space-around`}}>
             {SiteNavData.map((value, index, _array) => {
               return (
                 <div key={index}>
@@ -414,14 +417,15 @@ const HomePage: React.FC = () => {
             justifyContent: `center`,
             fontSize: `0.95rem`,
             marginTop: `1rem`,
-            color: `black`
+            color: `black`,
+            letterSpacing: `0.02rem`
           }}>
-            Powered by Vite & React. All rights reserved. Copyright ©MUAlliance.
+            Based on Vite & React. All rights reserved. Copyright ©MUAlliance.
           </div>
         </footer>
       </HomeLayout>
     </>
   )
-};
+}
 
 export default HomePage;

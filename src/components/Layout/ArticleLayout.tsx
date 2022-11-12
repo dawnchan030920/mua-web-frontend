@@ -59,7 +59,6 @@ const Content = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
   background-color: white;
   z-index: 1;
-  height: 100%;
   @media (min-width: 992px) {
     grid-column: 2;
   }
