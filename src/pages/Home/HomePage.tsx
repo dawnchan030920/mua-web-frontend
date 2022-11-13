@@ -163,6 +163,8 @@ const HomePage: React.FC = () => {
     <>
       <Helmet>
         <title>MUA | 中国高校 MC 联盟</title>
+        <meta name='description' content='MUA——中国高校Minecraft联盟，联络·联合·联盟' />
+	<meta name='keywords' content='minecraft,我的世界,高校,MUA' />
       </Helmet>
       <HomeLayout>
         <div style={{
@@ -420,7 +422,7 @@ const HomePage: React.FC = () => {
             color: `black`,
             letterSpacing: `0.02rem`
           }}>
-            Based on Vite & React. All rights reserved. Copyright ©MUAlliance.
+            Based on Vite & React. All rights reserved. Copyright ©MUAlliance. <a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">蜀ICP备2021020645号</a>
           </div>
         </footer>
       </HomeLayout>
