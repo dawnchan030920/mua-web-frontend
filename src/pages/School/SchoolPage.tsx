@@ -1,14 +1,12 @@
 import React from "react"
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {SiteNavKey} from "../../data/SiteNavData";
-import ArticleLayout from "../../components/Layout/ArticleLayout";
+import ArticleHOC from "../../components/Composite/ArticleHOC";
 
 const SchoolPage: React.FC<{}> = () => {
     const { pid } = useParams();
     return (
-        <ArticleLayout passageTitles={[
-        ]} category={SiteNavKey.School} title={``}>
-        </ArticleLayout>
+      <ArticleHOC pid={pid as string} category={SiteNavKey.School} categoryNumber={"schooldescription"} isSchool={true} />
     )
 }
 

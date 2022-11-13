@@ -9,7 +9,7 @@ import {ReactComponent as Calendar20} from "../../assets/icons/calendar20.svg";
 type ArticleHOC = {
   pid: string;
   category: SiteNavKey;
-  categoryNumber: number;
+  categoryNumber: string;
   isSchool?: boolean;
 }
 

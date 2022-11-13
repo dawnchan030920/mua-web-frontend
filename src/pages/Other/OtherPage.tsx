@@ -6,7 +6,7 @@ import ArticleHOC from "../../components/Composite/ArticleHOC";
 const OtherPage: React.FC<{}> = () => {
     const {pid} = useParams();
     return (
-      <ArticleHOC pid={pid as string} category={SiteNavKey.Other} categoryNumber={5} />
+      <ArticleHOC pid={pid as string} category={SiteNavKey.Other} categoryNumber={"otherdescription"} />
     )
 }
 

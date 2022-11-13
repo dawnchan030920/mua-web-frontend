@@ -7,7 +7,7 @@ import {ArticleList} from "./ArticleListContent";
 
 type ArticleListProps = {
   category: SiteNavKey;
-  categoryNumber: number;
+  categoryNumber: string;
 }
 
 const ArticleListHOC: React.FC<ArticleListProps> = (props) => {
