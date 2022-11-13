@@ -28,7 +28,7 @@ const SchoolCardContent = styled.div.attrs<{img: string}>({})<{img: string}>`
   width: 100%;
   height: 100%;
   background-image: url(${(props) => props.img});
-  background-size: cover;
+  background-size: contain;
   display: flex;
   flex-direction: column;
   justify-content: end;
