@@ -27,15 +27,21 @@ function process(markdown: string): {titles: { header: string; level: number; id
   let parsed = parser.parse(markdown);
   let walker = parsed.walker();
   let event, node;
+  let prevIsHeading: boolean = false;
+  let headingLevel: number = 0;
   while ((event = walker.next())) {
     node = event.node;
-    if (event.entering && node.type == 'heading') {
-      if (node.literal != null) {
-        node.literal = node.literal.toLowerCase();
+    if (event.entering) {
+      if (node.type === 'heading') {
+        prevIsHeading = true;
+        headingLevel = node.level;
+      }
+      if (node.type === 'text' && prevIsHeading) {
+        prevIsHeading = false;
         titles.push({
-          header: node.literal,
-          level: node.level,
-          id: node.literal?.toLowerCase()
+          header: node.literal == null ? "" : node.literal,
+          level: headingLevel,
+          id: node.literal == null ? "" : node.literal.toLowerCase()
         })
       }
     }
