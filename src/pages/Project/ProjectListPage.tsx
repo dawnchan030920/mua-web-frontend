@@ -3,7 +3,7 @@ import {SiteNavKey} from "../../data/SiteNavData";
 import ArticleListHOC from "../../components/Composite/ArticleListHOC";
 
 const ProjectListPage: React.FC = () => {
-  return <ArticleListHOC category={SiteNavKey.Project} categoryNumber={"projectdescription"} />
+  return <ArticleListHOC category={SiteNavKey.Project} categoryNumber={"2"} />
 }
 
 export default ProjectListPage;

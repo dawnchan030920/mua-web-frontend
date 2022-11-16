@@ -6,7 +6,7 @@ import ArticleHOC from "../../components/Composite/ArticleHOC";
 const SchoolPage: React.FC<{}> = () => {
     const { pid } = useParams();
     return (
-      <ArticleHOC pid={pid as string} category={SiteNavKey.School} categoryNumber={"schooldescription"} isSchool={true} />
+      <ArticleHOC pid={pid as string} category={SiteNavKey.School} categoryNumber={"1"} isSchool={true} />
     )
 }
 
